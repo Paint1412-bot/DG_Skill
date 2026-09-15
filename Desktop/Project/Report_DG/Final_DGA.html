@@ -1,0 +1,2821 @@
+<title>งบพัฒนาทักษะดิจิทัล DPE</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap');
+
+:root{
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f6f7fa;
+  --surface-3: #eceef3;
+  --border: #e2e4ec;
+  --text-primary: #11162b;
+  --text-secondary: #545c78;
+  --text-muted: #8890ac;
+  --brand: #1e4fd6;
+  --brand-ink: #12377f;
+  --brand-soft: #e8eefd;
+  --gold: #b8790f;
+  --gold-soft: #faf1de;
+  --good: #0c9a56;
+  --good-soft: #e3f6ec;
+  --warning: #c47f0a;
+  --warning-soft: #fbf0dc;
+  --critical: #cf3f34;
+  --critical-soft: #fbe8e6;
+  --accent2: #7c4dd6;
+  --accent2-soft: #f1ecfc;
+  --accent3: #0f8a7a;
+  --accent3-soft: #e5f5f2;
+  --accent4: #c2447a;
+  --accent4-soft: #fbebf2;
+  --series-plan: #2a78d6;
+  --series-actual: #eb6834;
+  --shadow: 0 1px 2px rgba(17,22,43,0.04), 0 8px 24px rgba(17,22,43,0.07);
+  --track: #eef0f4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg: #0b0e1a;
+    --surface: #131727;
+    --surface-2: #191f35;
+    --surface-3: #212845;
+    --border: #262e4d;
+    --text-primary: #f2f4fc;
+    --text-secondary: #b7bdd9;
+    --text-muted: #7d84a6;
+    --brand: #5c8cf0;
+    --brand-ink: #bdd0fb;
+    --brand-soft: #182248;
+    --gold: #e0aa4d;
+    --gold-soft: #2c2412;
+    --good: #35c281;
+    --good-soft: #103324;
+    --warning: #e2ab4f;
+    --warning-soft: #332714;
+    --critical: #ef6f63;
+    --critical-soft: #3a1a17;
+    --accent2: #b79cf0;
+    --accent2-soft: #251c3d;
+    --accent3: #4fd9c4;
+    --accent3-soft: #103330;
+    --accent4: #ea82ae;
+    --accent4-soft: #3a1f2c;
+    --series-plan: #3987e5;
+    --series-actual: #d95926;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    --track: #1c2138;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg: #0b0e1a;
+  --surface: #131727;
+  --surface-2: #191f35;
+  --surface-3: #212845;
+  --border: #262e4d;
+  --text-primary: #f2f4fc;
+  --text-secondary: #b7bdd9;
+  --text-muted: #7d84a6;
+  --brand: #5c8cf0;
+  --brand-ink: #bdd0fb;
+  --brand-soft: #182248;
+  --gold: #e0aa4d;
+  --gold-soft: #2c2412;
+  --good: #35c281;
+  --good-soft: #103324;
+  --warning: #e2ab4f;
+  --warning-soft: #332714;
+  --critical: #ef6f63;
+  --critical-soft: #3a1a17;
+  --accent2: #b79cf0;
+  --accent2-soft: #251c3d;
+  --accent3: #4fd9c4;
+  --accent3-soft: #103330;
+  --accent4: #ea82ae;
+  --accent4-soft: #3a1f2c;
+  --series-plan: #3987e5;
+  --series-actual: #d95926;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  --track: #1c2138;
+}
+
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Kanit', 'Sarabun', 'Noto Sans Thai', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding-inline: 20px;
+  padding-block: 28px 48px;
+}
+.wrap{ max-width: 1080px; margin: 0 auto; }
+
+.num{ font-family: 'Kanit', 'Sarabun', sans-serif; font-variant-numeric: tabular-nums; }
+
+/* header */
+header.top{ margin-bottom: 28px; }
+.eyebrow{
+  display:flex; align-items:center; gap:10px;
+  font-size: 12.5px; font-weight:600; color: var(--brand-ink);
+  letter-spacing:.03em; margin-bottom:10px;
+}
+.eyebrow .dot{ width:6px; height:6px; border-radius:50%; background: var(--brand); }
+h1{
+  font-family:'Kanit', sans-serif; font-weight:700; font-size: clamp(22px,4vw,32px);
+  margin: 0 0 8px; text-wrap: balance; color: var(--text-primary);
+}
+.sub{ color: var(--text-secondary); font-size: 14.5px; max-width: 640px; }
+
+/* kpi row */
+.kpi-row{
+  display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin: 26px 0 30px;
+}
+.kpi{
+  background: var(--surface); border:1px solid var(--border); border-radius:14px;
+  padding: 18px 18px; box-shadow: var(--shadow);
+  display:flex; flex-direction:column; gap:6px;
+}
+.kpi .k-label{ font-size:12.5px; color: var(--text-secondary); font-weight:600; }
+.kpi .k-value{ font-size: clamp(20px,2.4vw,26px); font-weight:700; color: var(--text-primary); }
+.kpi .k-value small{ font-size:13px; font-weight:600; color: var(--text-muted); margin-right:2px;}
+.kpi .k-note{ font-size:11.5px; color: var(--text-muted); }
+.kpi.accent .k-value{ color: var(--brand-ink); }
+.kpi.warn .k-value{ color: var(--warning); }
+
+/* cards */
+.card{
+  background: var(--surface); border:1px solid var(--border); border-radius:16px;
+  padding: 22px 22px 20px; box-shadow: var(--shadow); margin-bottom:20px;
+}
+.card-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+.card-head h2{ font-family:'Kanit',sans-serif; font-size:17px; font-weight:600; margin:0; }
+.card-head .card-sub{ font-size:12.5px; color:var(--text-muted); margin-top:2px; }
+.legend{ display:flex; gap:16px; flex-wrap:wrap; }
+.legend-item{ display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--text-secondary); font-weight:500;}
+.legend-swatch{ width:11px; height:11px; border-radius:3px; }
+
+/* chart */
+.chart-wrap{ position:relative; margin-top: 14px; }
+svg.chart{ width:100%; height:auto; display:block; overflow:visible; }
+.grid-line{ stroke: var(--border); stroke-width:1; }
+.axis-label{ fill: var(--text-muted); font-family:'Kanit',sans-serif; font-size:11.5px; }
+.bar{ cursor:pointer; transition: opacity .15s ease; }
+.bar:hover{ opacity:.82; }
+.bar-group-label{ fill: var(--text-secondary); font-family:'Kanit',sans-serif; font-size:12.5px; font-weight:600; text-anchor:middle;}
+.util-badge-bg{ fill: var(--surface-3); }
+.util-badge-text{ font-family:'Kanit',sans-serif; font-size:11px; font-weight:600; text-anchor:middle; }
+
+.tooltip{
+  position:absolute; pointer-events:none; z-index:5;
+  background: var(--text-primary); color: var(--bg);
+  font-size:12.5px; line-height:1.5; padding:8px 11px; border-radius:8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  opacity:0; transform: translate(-50%,-100%) translateY(-8px);
+  transition: opacity .1s ease; white-space:nowrap;
+}
+.tooltip.show{ opacity:1; }
+.tooltip b{ font-family:'Kanit',sans-serif; }
+
+/* table */
+table{ width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px;}
+th{
+  text-align:right; font-size:11.5px; text-transform:uppercase; letter-spacing:.03em;
+  color:var(--text-muted); font-weight:700; border-bottom:2px solid var(--border); padding:9px 10px;
+}
+th:first-child, td:first-child{ text-align:left; }
+td{ padding:10px 10px; border-bottom:1px solid var(--border); text-align:right; }
+tr:last-child td{ border-bottom:none; }
+tr.total-row td{ font-weight:700; border-top:2px solid var(--border); background: var(--surface-2); }
+.util-pill{
+  display:inline-block; font-size:11.5px; font-weight:700; padding:2px 9px; border-radius:999px;
+}
+.util-pill.good{ background:var(--good-soft); color:var(--good); }
+.util-pill.warn{ background:var(--warning-soft); color:var(--warning); }
+.util-pill.crit{ background:var(--critical-soft); color:var(--critical); }
+.fy-tag{
+  display:inline-block; font-size:10.5px; font-weight:700; padding:1px 7px; border-radius:5px;
+  background: var(--gold-soft); color: var(--gold); margin-left:6px; vertical-align:middle;
+}
+
+/* callout */
+.callout{
+  display:flex; gap:12px; background: var(--brand-soft); border:1px solid color-mix(in srgb, var(--brand) 30%, var(--border));
+  border-radius:12px; padding:14px 16px; margin-bottom:20px; align-items:flex-start;
+}
+.callout .c-icon{
+  width:26px; height:26px; border-radius:50%; background:var(--brand); color:#fff; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-family:'Kanit',sans-serif; font-weight:700; font-size:14px;
+}
+.callout .c-body b{ color:var(--brand-ink); }
+.callout .c-body{ font-size:13.5px; color:var(--text-secondary); }
+
+footer{
+  text-align:center; color:var(--text-muted); font-size:11.5px; margin-top:30px; padding-top:16px; border-top:1px solid var(--border);
+}
+
+/* section shell */
+section{ margin-bottom: 8px; }
+.section-head{ display:flex; align-items:center; gap:10px; margin: 34px 0 18px; }
+.section-head .s-num{
+  width:26px; height:26px; border-radius:50%; background:var(--brand); color:#fff; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-family:'Kanit',sans-serif; font-weight:700; font-size:13px;
+}
+.section-head h2.s-title{ font-family:'Kanit',sans-serif; font-size:19px; font-weight:600; margin:0; }
+.section-desc{ color:var(--text-muted); font-size:13px; margin: -10px 0 18px 36px; max-width:680px; }
+
+/* top nav */
+.pagenav{ display:flex; gap:8px; flex-wrap:wrap; margin: 18px 0 4px; }
+.pagenav a{
+  font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none;
+  background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:7px 14px;
+  transition: color .15s ease, border-color .15s ease;
+}
+.pagenav a:hover{ color:var(--brand-ink); border-color:var(--brand); }
+
+/* role cards */
+.role-grid{
+  display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+}
+.role-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  box-shadow: var(--shadow); padding:18px 18px 8px; display:flex; flex-direction:column;
+}
+.role-card-head{ display:flex; align-items:center; gap:11px; margin-bottom:12px; }
+.role-icon{
+  width:34px; height:34px; border-radius:10px; background:var(--brand-soft); color:var(--brand-ink);
+  display:flex; align-items:center; justify-content:center; font-family:'Kanit',sans-serif; font-weight:700; font-size:13px; flex-shrink:0;
+}
+.role-card-head h3{ font-family:'Kanit',sans-serif; font-size:14.5px; font-weight:600; margin:0; color:var(--text-primary); }
+.role-count{ font-size:11.5px; color:var(--text-muted); margin-top:1px; }
+
+.crs-list{ list-style:none; margin:0; padding:0; }
+.crs-row{
+  padding:10px 0; border-top:1px solid var(--border);
+}
+.crs-row:first-child{ border-top:none; }
+.crs-main{ display:flex; align-items:baseline; gap:7px; flex-wrap:wrap; }
+.crs-code{ font-family:'Kanit',sans-serif; font-weight:700; font-size:12.5px; color:var(--brand-ink); flex-shrink:0; }
+.crs-name{ font-size:12.8px; color:var(--text-primary); line-height:1.45; }
+.crs-meta{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:5px; flex-wrap:wrap; }
+.crs-skill{ font-size:10.5px; color:var(--text-muted); }
+.crs-years{ display:flex; gap:4px; flex-wrap:wrap; }
+.crs-note{ font-size:10.5px; color:var(--gold); margin-top:4px; font-style:italic; }
+.crs-row.special{ background: var(--gold-soft); margin: 0 -18px; padding:10px 18px; border-top:1px dashed color-mix(in srgb, var(--gold) 50%, var(--border)); }
+
+.crs-scope{ font-size:10.5px; font-weight:600; margin-top:4px; display:flex; align-items:center; gap:5px; }
+.crs-scope .dot{ width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+.crs-scope.excl{ color: var(--accent2); }
+.crs-scope.excl .dot{ background: var(--accent2); }
+.crs-scope.shared{ color: var(--text-muted); }
+.crs-scope.shared .dot{ background: var(--text-muted); }
+
+.yr-badge{
+  display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:999px; font-family:'Kanit',sans-serif;
+}
+.yr-68{ background: var(--surface-3); color: var(--text-secondary); }
+.yr-69{ background: var(--brand-soft); color: var(--brand-ink); }
+.yr-70{ background: var(--gold-soft); color: var(--gold); }
+
+.yr-legend{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+.yr-legend .legend-item{ font-size:12px; }
+
+/* course summary table */
+.table-wrap{ overflow-x:auto; }
+.scroll-hint{ display:none; font-size:11px; color:var(--text-muted); margin:0 0 8px; text-align:right; }
+.sk-tag{
+  display:inline-block; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:6px; white-space:nowrap;
+}
+.sk-lit{ background: var(--brand-soft); color: var(--brand-ink); }
+.sk-gov{ background: var(--accent2-soft); color: var(--accent2); }
+.sk-tech{ background: var(--good-soft); color: var(--good); }
+.sk-sec{ background: var(--critical-soft); color: var(--critical); }
+.sk-data{ background: var(--accent3-soft); color: var(--accent3); }
+.sk-lead{ background: var(--warning-soft); color: var(--warning); }
+.sk-svc{ background: var(--accent4-soft); color: var(--accent4); }
+.crs-name-cell{ font-size:12px; color:var(--text-secondary); margin-top:3px; max-width:300px; line-height:1.4; }
+.grp-wrap{ display:flex; flex-wrap:wrap; gap:4px; max-width:200px; }
+.grp-tag{
+  display:inline-block; font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:5px;
+  background: var(--surface-2); color: var(--text-secondary); border:1px solid var(--border);
+}
+table.summary td, table.summary th{ text-align:left; }
+table.summary td.num, table.summary th.num{ text-align:right; }
+tr.subtotal-row td{ font-weight:700; background: var(--surface-2); color:var(--text-secondary); font-size:12.5px; border-top:1px solid var(--border); }
+tr.crow-special td{ background: var(--gold-soft); }
+.grp-legend{ display:flex; gap:10px; flex-wrap:wrap; font-size:11.5px; color:var(--text-muted); margin: 8px 0 0 36px; }
+.grp-legend b{ color:var(--text-secondary); }
+
+/* roster cards */
+.roster-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  box-shadow: var(--shadow); padding:18px 20px; margin-bottom:16px;
+}
+.roster-card-special{ background: var(--gold-soft); border-color: color-mix(in srgb, var(--gold) 35%, var(--border)); }
+.roster-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+.roster-head-title{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.roster-name{ font-size:13.5px; color:var(--text-primary); font-weight:500; }
+.roster-head-meta{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.roster-count{ font-size:12px; color:var(--text-muted); font-weight:600; }
+.roster-table-wrap{ overflow-x:auto; }
+table.roster-table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+table.roster-table th{
+  text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.03em;
+  color:var(--text-muted); font-weight:700; border-bottom:2px solid var(--border); padding:6px 8px;
+}
+table.roster-table td{ padding:7px 8px; border-bottom:1px solid var(--border); color:var(--text-secondary); }
+table.roster-table tr:last-child td{ border-bottom:none; }
+table.roster-table td:first-child{ color:var(--text-primary); font-weight:500; white-space:nowrap; }
+
+/* horizontal bar rows (dept chart, gap meters) */
+.hbar-row{ display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
+.hbar-row:last-child{ border-bottom:none; }
+.hbar-label{ width:210px; flex-shrink:0; font-size:12.5px; color:var(--text-secondary); line-height:1.35; }
+.hbar-track{ flex:1; background:var(--track); border-radius:6px; height:13px; overflow:hidden; }
+.hbar-fill{ background:var(--brand); height:100%; border-radius:6px; }
+.hbar-value{ width:58px; flex-shrink:0; text-align:right; font-size:12.5px; font-weight:700; font-family:'Kanit',sans-serif; font-variant-numeric:tabular-nums; }
+
+/* skill gap blocks */
+.gap-block{ padding:14px 0; border-top:1px solid var(--border); }
+.gap-block:first-child{ border-top:none; padding-top:2px; }
+.gap-head{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+.gap-frac{ font-size:12.5px; font-weight:700; color:var(--text-secondary); font-family:'Kanit',sans-serif; }
+.gap-priority{
+  font-size:10.5px; font-weight:700; color:var(--critical); background:var(--critical-soft);
+  padding:2px 8px; border-radius:999px; margin-left:auto;
+}
+.gap-missing{ font-size:12px; color:var(--text-muted); margin-top:9px; line-height:1.8; }
+.gap-missing.gap-complete{ color:var(--good); font-weight:600; }
+.miss-chip{
+  display:inline-block; background:var(--surface-2); border:1px solid var(--border); border-radius:6px;
+  padding:3px 9px; margin:0 6px 6px 0; font-size:11.5px; color:var(--text-secondary);
+}
+.miss-chip b{ color:var(--text-primary); font-family:'Kanit',sans-serif; }
+
+.callout.warn{ background:var(--warning-soft); border-color: color-mix(in srgb, var(--warning) 35%, var(--border)); }
+.callout.warn .c-icon{ background:var(--warning); }
+.callout.warn .c-body b{ color:var(--warning); }
+
+table.role-cov td{ vertical-align:middle; }
+
+/* online course recommendations */
+.gap-priority.good{ color:var(--good); background:var(--good-soft); }
+.online-note{ font-size:12px; color:var(--text-muted); margin: 2px 0 10px; line-height:1.6; }
+.online-list{ display:flex; flex-direction:column; gap:7px; }
+.online-item{ display:flex; align-items:baseline; gap:9px; font-size:12.8px; color:var(--text-secondary); line-height:1.5; }
+.src-tag{ flex-shrink:0; font-size:9.5px; font-weight:700; padding:2px 7px; border-radius:5px; font-family:'Kanit',sans-serif; margin-top:2px; }
+.src-tag.src-dep{ background:var(--brand-soft); color:var(--brand-ink); }
+.src-tag.src-ocsc{ background:var(--accent3-soft); color:var(--accent3); }
+
+.qw-row{ display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px dashed color-mix(in srgb, var(--brand) 25%, var(--border)); flex-wrap:wrap; }
+.qw-row:first-child{ border-top:none; padding-top:2px; }
+.qw-from{ width:280px; flex-shrink:0; font-size:12.8px; color:var(--text-primary); line-height:1.45; }
+.qw-arrow{ font-size:16px; color:var(--brand); flex-shrink:0; }
+.qw-to{ flex:1; min-width:200px; }
+.qw-to .online-item{ margin:0; }
+
+@media (max-width: 900px){
+  .role-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px){
+  .kpi-row{ grid-template-columns: repeat(2,1fr); }
+  .role-grid{ grid-template-columns: 1fr; }
+}
+@media (max-width: 460px){
+  .kpi-row{ grid-template-columns: 1fr 1fr; gap:10px; }
+  .card, .role-card{ padding:16px 14px; }
+  body{ font-size:14px; }
+  .section-desc{ margin-left:0; }
+  .grp-legend{ margin-left:0; }
+  .roster-card{ padding:14px 14px; }
+  .scroll-hint{ display:block; }
+  .crs-name-cell{ max-width:180px; }
+  .grp-wrap{ max-width:130px; }
+  .hbar-row{ flex-wrap:wrap; }
+  .hbar-label{ width:100%; }
+  .hbar-value{ text-align:left; }
+  .gap-priority{ margin-left:0; }
+  .qw-row{ flex-direction:column; align-items:flex-start; gap:8px; }
+  .qw-from{ width:100%; }
+  .qw-arrow{ transform:rotate(90deg); }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow"><span class="dot"></span>กรมพลศึกษา (DPE) · กลุ่มเทคโนโลยีสารสนเทศและการสื่อสาร</div>
+    <h1>แดชบอร์ดรายงานผู้บริหาร: การพัฒนาทักษะดิจิทัลบุคลากร</h1>
+    <div class="sub">งบประมาณ หลักสูตร และการเข้าร่วมอบรม DGA Digital Skill ปีงบประมาณ 2567–2570</div>
+    <nav class="pagenav">
+      <a href="#budget">1 · งบประมาณ</a>
+      <a href="#roles">2 · หลักสูตรตามกลุ่มเป้าหมาย</a>
+      <a href="#summary">3 · สรุปหลักสูตรที่อบรมแล้ว</a>
+      <a href="#roster">4 · รายชื่อผู้เข้าอบรมรายหลักสูตร</a>
+      <a href="#depts">5 · สรุปรายส่วนงาน</a>
+      <a href="#gaps">6 · ช่องว่างทักษะที่ยังขาด</a>
+      <a href="#online">7 · แนะนำหลักสูตรออนไลน์</a>
+    </nav>
+  </header>
+
+  <section id="budget">
+  <div class="section-head"><span class="s-num">1</span><h2 class="s-title">งบประมาณ: แผน เทียบ ผลการใช้จ่ายจริง</h2></div>
+
+  <div class="kpi-row">
+    <div class="kpi accent">
+      <div class="k-label">แผนงบประมาณรวม 4 ปี</div>
+      <div class="k-value num">11.46<small>ล้านบาท</small></div>
+      <div class="k-note">ปีงบ 67–70</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">ใช้จ่ายจริงสะสม</div>
+      <div class="k-value num">2.38<small>ล้านบาท</small></div>
+      <div class="k-note">คิดเป็น 20.8% ของแผนรวม</div>
+    </div>
+    <div class="kpi warn">
+      <div class="k-label">อัตราการเบิกจ่ายเฉลี่ย</div>
+      <div class="k-value num">20.8<small>%</small></div>
+      <div class="k-note">ทุกปีเบิกจ่ายต่ำกว่าแผนมาก</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">สถานะปีงบ 70</div>
+      <div class="k-value num">17.5<small>%</small></div>
+      <div class="k-note">ยอดจองอบรมล่วงหน้า (ยังไม่เริ่มอบรม)</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="c-icon">!</div>
+    <div class="c-body">
+      ทุกปีงบประมาณเบิกจ่ายจริง <b>ต่ำกว่าแผนมาก</b> — สูงสุดคือปีงบ 68 ที่เบิกจ่ายได้เพียง <b>29.9%</b> ของแผน
+      ส่วนปีงบ 69 เบิกจ่ายเพียง <b>19.9%</b> ของแผนที่ตั้งไว้ 3.39 ล้านบาท ควรทบทวนสาเหตุ เช่น จำนวนที่นั่งจริงต่ำกว่าที่ตั้งงบ
+      หรือหลักสูตรบางส่วนไม่ได้จัดตามแผน
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>แผนงบประมาณ เทียบ ผลการใช้จ่ายจริง รายปีงบประมาณ</h2>
+        <div class="card-sub">หน่วย: บาท · ปีงบ 70 เป็นยอดจองอบรมที่ยืนยันแล้วจากปฏิทินอบรม (ต.ค. 69 – มี.ค. 70)</div>
+      </div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:var(--series-plan)"></span>แผนงบประมาณ</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:var(--series-actual)"></span>ผลการใช้จ่ายจริง</span>
+      </div>
+    </div>
+
+    <div class="chart-wrap" id="chartWrap">
+      <svg class="chart" id="budgetChart" viewBox="0 0 820 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟแท่งเปรียบเทียบแผนงบประมาณกับผลการใช้จ่ายจริง ปีงบ 67 ถึง 70"></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>ตารางข้อมูล</h2>
+        <div class="card-sub">แผน / ผล / อัตราการเบิกจ่าย แยกรายปีงบประมาณ</div>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr><th>ปีงบประมาณ</th><th>แผนงบประมาณ (บาท)</th><th>ผลการใช้จ่ายจริง (บาท)</th><th>อัตราเบิกจ่าย</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ปีงบ 67</td><td class="num">690,000</td><td class="num">0</td>
+          <td><span class="util-pill crit">0.0%</span></td>
+        </tr>
+        <tr>
+          <td>ปีงบ 68</td><td class="num">3,338,600</td><td class="num">998,600</td>
+          <td><span class="util-pill warn">29.9%</span></td>
+        </tr>
+        <tr>
+          <td>ปีงบ 69</td><td class="num">3,390,000</td><td class="num">674,900</td>
+          <td><span class="util-pill crit">19.9%</span></td>
+        </tr>
+        <tr>
+          <td>ปีงบ 70<span class="fy-tag">ยอดจอง</span></td><td class="num">4,040,000</td><td class="num">708,000</td>
+          <td><span class="util-pill crit">17.5%</span></td>
+        </tr>
+        <tr class="total-row">
+          <td>รวม 4 ปีงบ</td><td class="num">11,458,600</td><td class="num">2,381,500</td>
+          <td><span class="util-pill warn">20.8%</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </section>
+
+  <section id="roles">
+  <div class="section-head"><span class="s-num">2</span><h2 class="s-title">หลักสูตรตามกลุ่มเป้าหมาย</h2></div>
+  <div class="section-desc">
+    หลักสูตร DGA Digital Skill ทั้งหมด 27 หลักสูตร จัดกลุ่มตามเป้าหมายผู้เข้ารับการอบรม 6 กลุ่ม (บางหลักสูตรครอบคลุมมากกว่า 1 กลุ่ม)
+    กรมพลศึกษาส่งบุคลากรเข้าอบรมแล้วหรือจองอบรมแล้วรวม <b class="num" style="color:var(--brand-ink)">17</b> จาก 27 หลักสูตร
+    — แสดงเฉพาะหลักสูตรที่กรมส่งคนไปจริงในแต่ละกลุ่ม พร้อมปีงบประมาณที่อบรม
+  </div>
+
+  <div class="card" style="padding:14px 18px;">
+    <div class="yr-legend">
+      <span class="legend-item"><span class="yr-badge yr-68">ปีงบ 68</span> อบรมแล้ว</span>
+      <span class="legend-item"><span class="yr-badge yr-69">ปีงบ 69</span> อบรมแล้ว (ปีปัจจุบัน)</span>
+      <span class="legend-item"><span class="yr-badge yr-70">ปีงบ 70</span> ยอดจองอบรม (ยังไม่เริ่มปีงบ)</span>
+      <span style="width:1px; height:14px; background:var(--border); flex-shrink:0;"></span>
+      <span class="legend-item"><span class="crs-scope excl" style="margin-top:0;"><span class="dot"></span></span>เฉพาะกลุ่มนี้กลุ่มเดียว</span>
+      <span class="legend-item"><span class="crs-scope shared" style="margin-top:0;"><span class="dot"></span></span>หลักสูตรที่ใช้ร่วมหลายกลุ่ม</span>
+    </div>
+  </div>
+
+  <div class="role-grid">
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">IT</span>
+          <div>
+            <h3>ผู้ปฏิบัติงาน IT</h3>
+            <div class="role-count">13 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA102</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลเพื่อการทำงาน</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA103</span>
+          <span class="crs-name">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA301</span>
+          <span class="crs-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 5 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA303</span>
+          <span class="crs-name">หลักสูตรการจัดทำธรรมาภิบาลข้อมูลภายในหน่วยงานสำหรับผู้ปฏิบัติงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA306</span>
+          <span class="crs-name">หลักสูตรเทคนิคการวิเคราะห์ข้อมูล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope excl"><span class="dot"></span>เฉพาะกลุ่มนี้</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA307</span>
+          <span class="crs-name">การบริหารจัดการบริการเทคโนโลยีสารสนเทศภายในองค์กร</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope excl"><span class="dot"></span>เฉพาะกลุ่มนี้</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA309</span>
+          <span class="crs-name">หลักสูตรการรักษาความมั่นคงปลอดภัยไซเบอร์สำหรับผู้ปฏิบัติงานด้านเทคโนโลยี</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Cybersecurity</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope excl"><span class="dot"></span>เฉพาะกลุ่มนี้</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA403</span>
+          <span class="crs-name">หลักสูตรการออกแบบกระบวนงานเพื่อการปรับเปลี่ยนไปสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Service</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA502</span>
+          <span class="crs-name">หลักสูตรการบริหารโครงการดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">IT</span>
+          <div>
+            <h3>หัวหน้างาน/อำนวยการ IT</h3>
+            <div class="role-count">10 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA103</span>
+          <span class="crs-name">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA203</span>
+          <span class="crs-name">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Cybersecurity</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA301</span>
+          <span class="crs-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 5 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA304</span>
+          <span class="crs-name">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA501</span>
+          <span class="crs-name">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA601</span>
+          <span class="crs-name">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">C</span>
+          <div>
+            <h3>MCIO/DCIO</h3>
+            <div class="role-count">10 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA103</span>
+          <span class="crs-name">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA203</span>
+          <span class="crs-name">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Cybersecurity</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA301</span>
+          <span class="crs-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 5 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA304</span>
+          <span class="crs-name">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA501</span>
+          <span class="crs-name">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA601</span>
+          <span class="crs-name">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">N</span>
+          <div>
+            <h3>ผู้ปฏิบัติงาน Non-IT</h3>
+            <div class="role-count">9 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA102</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลเพื่อการทำงาน</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA103</span>
+          <span class="crs-name">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA303</span>
+          <span class="crs-name">หลักสูตรการจัดทำธรรมาภิบาลข้อมูลภายในหน่วยงานสำหรับผู้ปฏิบัติงานภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA403</span>
+          <span class="crs-name">หลักสูตรการออกแบบกระบวนงานเพื่อการปรับเปลี่ยนไปสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Service</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA502</span>
+          <span class="crs-name">หลักสูตรการบริหารโครงการดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 2 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">N</span>
+          <div>
+            <h3>หัวหน้างาน/อำนวยการ Non-IT</h3>
+            <div class="role-count">10 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA102</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลเพื่อการทำงาน</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA203</span>
+          <span class="crs-name">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Cybersecurity</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA301</span>
+          <span class="crs-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 5 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA304</span>
+          <span class="crs-name">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA501</span>
+          <span class="crs-name">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA601</span>
+          <span class="crs-name">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+
+      <div class="role-card">
+        <div class="role-card-head">
+          <span class="role-icon">E</span>
+          <div>
+            <h3>บริหาร</h3>
+            <div class="role-count">11 หลักสูตร</div>
+          </div>
+        </div>
+        <ul class="crs-list">
+          <li class="crs-row special">
+        <div class="crs-main">
+          <span class="crs-code">GCIO</span>
+          <span class="crs-name">หลักสูตรผู้บริหารเทคโนโลยีสารสนเทศระดับสูงภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">พิเศษ (นอกกรอบ DGA)</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-note">หลักสูตรพิเศษนอกกรอบ DGA Digital Skill</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA101</span>
+          <span class="crs-name">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA102</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลเพื่อการทำงาน</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Literacy</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA201</span>
+          <span class="crs-name">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA203</span>
+          <span class="crs-name">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Cybersecurity</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA301</span>
+          <span class="crs-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-68">ปีงบ 68</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 5 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA304</span>
+          <span class="crs-name">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Data Utilization and Sharing</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA310</span>
+          <span class="crs-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Technology</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span><span class="yr-badge yr-70">ปีงบ 70</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA501</span>
+          <span class="crs-name">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">DGA601</span>
+          <span class="crs-name">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Leadership</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 4 กลุ่ม</div>
+      </li><li class="crs-row">
+        <div class="crs-main">
+          <span class="crs-code">GDPO</span>
+          <span class="crs-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="crs-meta">
+          <span class="crs-skill">Digital Governance</span>
+          <span class="crs-years"><span class="yr-badge yr-69">ปีงบ 69</span></span>
+        </div>
+        <div class="crs-scope shared"><span class="dot"></span>ใช้ร่วม 6 กลุ่ม</div>
+      </li>
+        </ul>
+      </div>
+  </div>
+  </section>
+
+  <section id="summary">
+  <div class="section-head"><span class="s-num">3</span><h2 class="s-title">สรุปหลักสูตรที่อบรมแล้ว</h2></div>
+  <div class="section-desc">
+    หลักสูตรที่กรมพลศึกษาอบรมแล้วหรือยืนยันจองแล้วทั้งหมด 17 หลักสูตร เรียงตามปีงบประมาณที่อบรม (68 → 69 → 70)
+    พร้อมด้าน กลุ่มเป้าหมาย จำนวนผู้เข้าอบรม และงบประมาณที่ใช้ต่อรุ่น
+  </div>
+
+  <div class="card">
+    <div class="scroll-hint">เลื่อนดูข้อมูลเพิ่มเติม →</div>
+    <div class="table-wrap">
+    <table class="summary">
+      <thead>
+        <tr><th>หลักสูตร</th><th>ด้าน</th><th>กลุ่มเป้าหมาย</th><th>ปีงบ</th><th class="num">จำนวนคน</th><th class="num">งบที่ใช้ (บาท)</th></tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><span class="crs-code">DGA403</span><div class="crs-name-cell">หลักสูตรการออกแบบกระบวนงานเพื่อการปรับเปลี่ยนไปสู่องค์กรดิจิทัล</div></td>
+        <td><span class="sk-tag sk-svc">Digital Service</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">NS</span></div></td>
+        <td><span class="yr-badge yr-68">ปีงบ 68</span></td>
+        <td class="num">18</td>
+        <td class="num">567,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA301</span><div class="crs-name-cell">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</div></td>
+        <td><span class="sk-tag sk-gov">Digital Governance</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-68">ปีงบ 68</span></td>
+        <td class="num">26</td>
+        <td class="num">431,600</td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="4">รวมปีงบ 68</td>
+        <td class="num">44</td>
+        <td class="num">998,600</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA304</span><div class="crs-name-cell">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</div></td>
+        <td><span class="sk-tag sk-data">Data Utilization and Sharing</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">7</td>
+        <td class="num">53,900</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">GDPO</span><div class="crs-name-cell">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</div></td>
+        <td><span class="sk-tag sk-gov">Digital Governance</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">1</td>
+        <td class="num">19,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA203</span><div class="crs-name-cell">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</div></td>
+        <td><span class="sk-tag sk-sec">Cybersecurity</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">10</td>
+        <td class="num">77,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA103</span><div class="crs-name-cell">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</div></td>
+        <td><span class="sk-tag sk-data">Data Utilization and Sharing</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">2</td>
+        <td class="num">17,200</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA309</span><div class="crs-name-cell">หลักสูตรการรักษาความมั่นคงปลอดภัยไซเบอร์สำหรับผู้ปฏิบัติงานด้านเทคโนโลยี</div></td>
+        <td><span class="sk-tag sk-sec">Cybersecurity</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">3</td>
+        <td class="num">46,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA601</span><div class="crs-name-cell">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</div></td>
+        <td><span class="sk-tag sk-lead">Digital Leadership</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">5</td>
+        <td class="num">47,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA307</span><div class="crs-name-cell">การบริหารจัดการบริการเทคโนโลยีสารสนเทศภายในองค์กร</div></td>
+        <td><span class="sk-tag sk-tech">Digital Technology</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">8</td>
+        <td class="num">84,800</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA303</span><div class="crs-name-cell">หลักสูตรการจัดทำธรรมาภิบาลข้อมูลภายในหน่วยงานสำหรับผู้ปฏิบัติงานภาครัฐ</div></td>
+        <td><span class="sk-tag sk-data">Data Utilization and Sharing</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">NS</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">5</td>
+        <td class="num">46,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA502</span><div class="crs-name-cell">หลักสูตรการบริหารโครงการดิจิทัล</div></td>
+        <td><span class="sk-tag sk-lead">Digital Leadership</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">NS</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">15</td>
+        <td class="num">196,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA501</span><div class="crs-name-cell">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</div></td>
+        <td><span class="sk-tag sk-lead">Digital Leadership</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">10</td>
+        <td class="num">77,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA310</span><div class="crs-name-cell">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</div></td>
+        <td><span class="sk-tag sk-tech">Digital Technology</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span></td>
+        <td class="num">1</td>
+        <td class="num">8,500</td>
+      </tr>
+      <tr class="crow-special">
+        <td><span class="crs-code">GCIO</span><div class="crs-name-cell">GCIO หลักสูตรผู้บริหารเทคโนโลยีสารสนเทศระดับสูงภาครัฐ</div></td>
+        <td><span class="sk-tag" style="background:var(--gold-soft);color:var(--gold);">พิเศษ</span></td>
+        <td><span class="grp-tag" style="opacity:.6;">EX (เฉพาะ)</span></td>
+        <td><span class="yr-badge yr-69">ปีงบ 69</span> <span class="fy-tag" style="background:var(--gold-soft);color:var(--gold);">นอกกรอบ DGA</span></td>
+        <td class="num">1</td>
+        <td class="num">0</td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="4">รวมปีงบ 69</td>
+        <td class="num">68</td>
+        <td class="num">674,900</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA201</span><div class="crs-name-cell">หลักสูตรกฎหมายดิจิทัลมาตรฐานและหลักปฏิบัติที่ดีด้านดิจิทัลสำหรับบุคลากรภาครัฐ</div></td>
+        <td><span class="sk-tag sk-gov">Digital Governance</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-70">ปีงบ 70</span> <span class="fy-tag">ยอดจอง</span></td>
+        <td class="num">15</td>
+        <td class="num">144,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA102</span><div class="crs-name-cell">หลักสูตรการใช้เครื่องมือดิจิทัลเพื่อการทำงาน</div></td>
+        <td><span class="sk-tag sk-lit">Digital Literacy</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-70">ปีงบ 70</span> <span class="fy-tag">ยอดจอง</span></td>
+        <td class="num">15</td>
+        <td class="num">139,500</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA101</span><div class="crs-name-cell">หลักสูตรความเข้าใจและใช้เทคโนโลยีดิจิทัลอย่างมีประสิทธิภาพ</div></td>
+        <td><span class="sk-tag sk-lit">Digital Literacy</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-70">ปีงบ 70</span> <span class="fy-tag">ยอดจอง</span></td>
+        <td class="num">15</td>
+        <td class="num">171,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA310</span><div class="crs-name-cell">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</div></td>
+        <td><span class="sk-tag sk-tech">Digital Technology</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span><span class="grp-tag">ITH</span><span class="grp-tag">MC</span><span class="grp-tag">NS</span><span class="grp-tag">NH</span><span class="grp-tag">EX</span></div></td>
+        <td><span class="yr-badge yr-70">ปีงบ 70</span> <span class="fy-tag">ยอดจอง</span></td>
+        <td class="num">24</td>
+        <td class="num">204,000</td>
+      </tr>
+      <tr>
+        <td><span class="crs-code">DGA306</span><div class="crs-name-cell">หลักสูตรเทคนิคการวิเคราะห์ข้อมูล</div></td>
+        <td><span class="sk-tag sk-data">Data Utilization and Sharing</span></td>
+        <td><div class="grp-wrap"><span class="grp-tag">ITS</span></div></td>
+        <td><span class="yr-badge yr-70">ปีงบ 70</span> <span class="fy-tag">ยอดจอง</span></td>
+        <td class="num">3</td>
+        <td class="num">49,500</td>
+      </tr>
+      <tr class="subtotal-row">
+        <td colspan="4">รวมปีงบ 70</td>
+        <td class="num">72</td>
+        <td class="num">708,000</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="4">รวมทั้งหมด (ปีงบ 68-70)</td>
+        <td class="num">184</td>
+        <td class="num">2,381,500</td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="grp-legend">
+      <b>กลุ่มเป้าหมาย:</b> ITS = ผู้ปฏิบัติงาน IT · ITH = หัวหน้างาน/อำนวยการ IT · MC = MCIO/DCIO · NS = ผู้ปฏิบัติงาน Non-IT · NH = หัวหน้างาน/อำนวยการ Non-IT · EX = บริหาร
+    </div>
+  </div>
+  </section>
+
+  <section id="roster">
+  <div class="section-head"><span class="s-num">4</span><h2 class="s-title">รายชื่อผู้เข้าอบรมรายหลักสูตร</h2></div>
+  <div class="section-desc">
+    รายชื่อผู้เข้ารับการอบรมจริงแยกตามหลักสูตร เรียงจากปีงบ 68 ถึง 69 (รวม 112 คน · ยังไม่รวมปีงบ 70 เนื่องจากยังไม่เริ่มอบรม)
+    <span style="display:block; margin-top:4px; font-size:12px;">ตารางแต่ละหลักสูตรเลื่อนดูแนวนอนได้บนจอมือถือ</span>
+  </div>
+
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA403</span>
+          <span class="roster-name">หลักสูตรการออกแบบกระบวนงานเพื่อการปรับเปลี่ยนไปสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-68">ปีงบ 68</span>
+          <span class="roster-count">18 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวศศลักษณ์ ศิริพิน</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นายจิรวัฒน์ ดวงธนู</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นายชวกร ศรานนทวัฒน์</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายนฤพนธ์ ทองสุข</td>
+          <td>นักทรัพยากรบุคคลชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายวิรัตน์ อามานนท์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>ร้อยโทกรกฤษณ์ ไวสติ</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวนภสร คำนับภา</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>ว่าที่ร้อยตรี วิทวัส ศรีโนนยางค์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นางสาวฐิติกาญจน์ บำรุงชัยกุล</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นางสาวบัวบูชา แก้วสกุลณี</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายณัฐวุฒิ ชูชื่น</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวมัลลิกา บุญเปรม</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวศุภสุตา สุระเศรณีกุล</td>
+          <td>พยาบาลวิชาชีพปฏิบัติการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวสโรชา สุทธิจิต</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวนภัทร จิระเดชธนากุล</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวกัลยกร ชัยณรงค์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายพันธ์ลพ วรวรรณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวศุภนัน คงสุทธิ์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA301</span>
+          <span class="roster-name">หลักสูตรการจัดทำสถาปัตยกรรมองค์กรเพื่อสนับสนุนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-68">ปีงบ 68</span>
+          <span class="roster-count">26 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวจารุวรรณ ดอกแก้ว</td>
+          <td>นักวิเคราะห์นโยบายและแผนชำนาญการพิเศษ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นายฐาปณัฐ ผลสุข</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายกิตติศักดิ์ ร่มเกษ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวรัชราวไล สว่างอรุณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นางสาววริศรา แสงไพโรจน์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นางจิดาภา เจตนิพิฐอาภา</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายสิรวิชญ์ ณิชาโชติสฤษฎ์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายปณิธาน หงษ์ทอง</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายชลิตพล สืบใหม่</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายชัยยศ ใคร่ครวญ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายสุรศักดิ์ หามนตรี</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายวรพงศ์ สุขเกิด</td>
+          <td>นักวิเคราะห์นโยบายและแผนชำนาญการ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นายนฤพนธ์ ทองสุข</td>
+          <td>นักทรัพยากรบุคคลชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>จ่าเอกธนกฤต ปาละเขียว</td>
+          <td>นักทรัพยากรบุคคลชำนาญการพิเศษ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นางสาวอรุณนีย์ เอื้อเฟื้อสุข</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นางสาวปวีณา ศิริสุทธิกุล</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>กองการต่างประเทศ</td>
+        </tr>
+        <tr>
+          <td>นางวลัยพร ร่มรื่น</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายธรณ์เทพ แซ่อั้ง</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายวิรัตน์ อามานนท์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายทวีศักดิ์ ประสิทธิ์อ้น</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายอัชรัฐ ยงทวี</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายอภิรมย์ อาทิตย์ตั้ง</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายอดุลยชาติ ขันธมะ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายพีรพันธุ์ ธงชัย</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายพันธ์ลพ วรวรรณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวนภาพร สุวรรณโคตร</td>
+          <td>นักวิชาการคอมพิวเตอร์ชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA304</span>
+          <span class="roster-name">หลักสูตรการวิเคราะห์ข้อมูลและการใช้ประโยชน์เพื่อการตัดสินใจสำหรับผู้บริหาร</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">7 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>ส.ต.ท.หญิงชุติกาญจน์ ผาลใจ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวรัชราวไล สว่างอรุณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายธิติวัฒน์ น้อยคำเมือง</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวจารุวรรณ ดอกแก้ว</td>
+          <td>นักวิเคราะห์นโยบายและแผนชำนาญการพิเศษ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นายธนสิทธิ์ พูลสมบัติ</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นางสาวอรุณนีย์ เอื้อเฟื้อสุข</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นางสาวชณัชา เทือกเถาว์</td>
+          <td>นักวิเคราะห์นโยบายและแผนชำนาญการ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">GDPO</span>
+          <span class="roster-name">GDPO หลักสูตรเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">1 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวนภาพร สุวรรณโคตร</td>
+          <td>นักวิชาการคอมพิวเตอร์ชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA203</span>
+          <span class="roster-name">หลักสูตรความมั่นคงปลอดภัยทางดิจิทัลสำหรับผู้บริหารภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">10 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นายชัยยศ ใคร่ครวญ</td>
+          <td>ผอ.กองมาตรฐานอาคารสถานการกีฬา</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวปวีณา ศิริสุทธิกุล</td>
+          <td>ผอ.กองการต่างประเทศ</td>
+          <td>กองการต่างประเทศ</td>
+        </tr>
+        <tr>
+          <td>นางสาวอรุณนีย์ เอื้อเฟื้อสุข</td>
+          <td>ผอ.กองยุทธศาสตร์และแผนงาน</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นางสาวจารุวรรณ ดอกแก้ว</td>
+          <td>ผอ.กลุ่มพัฒนาระบบบริหาร</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นางชนกพิกษ์ฌาณ์ ชัยศักดิยศ</td>
+          <td>ผอ.กลุ่มตรวจสอบภายใน</td>
+          <td>กลุ่มตรวจสอบภายใน</td>
+        </tr>
+        <tr>
+          <td>นายสิโรตม์ มียศ</td>
+          <td>ผอ.สำนักการกีฬา</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>ว่าที่ร.ต.ปราโมทย์ เลิศจิตรการุณ</td>
+          <td>ผอ.สำนักนันทนาการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายอัชรัฐ ยงทวี</td>
+          <td>ผอ.สำนักวิทยาศาสตร์การกีฬา</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายอดุลยชาติ ขันธมะ</td>
+          <td>รักษาการ ผอ. สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>จ่าเอกธนกฤต ปาละเขียว</td>
+          <td>รักษาการ เลขานุการกรม</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA103</span>
+          <span class="roster-name">หลักสูตรการจัดการข้อมูลเปิดภาครัฐและการเชื่อมโยงข้อมูลข้ามหน่วยงานภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">2 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นายชวกร ศรานนทวัฒน์</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายฐาปณัฐ ผลสุข</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA309</span>
+          <span class="roster-name">หลักสูตรการรักษาความมั่นคงปลอดภัยไซเบอร์สำหรับผู้ปฏิบัติงานด้านเทคโนโลยี</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">3 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นายชวกร ศรานนทวัฒน์</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายฐาปณัฐ ผลสุข</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นางสาวสุภาพร เรืองศรี</td>
+          <td>นักวิชาการคอมพิวเตอร์</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA601</span>
+          <span class="roster-name">หลักสูตรผู้นำด้านดิจิทัลภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">5 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นายอดุลยชาติ ขันธมะ</td>
+          <td>ผอ. สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>ว่าที่ร.ต.นรภัทร แย้มสรวล</td>
+          <td>ผู้เชี่ยวชาญเฉพาะด้านส่งเสริมและพัฒนานันทนาการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายชัยยศ ใคร่ครวญ</td>
+          <td>ผอ.กองมาตรฐานอาคารสถานการกีฬา</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวอรุณนีย์ เอื้อเฟื้อสุข</td>
+          <td>ผอ.กองยุทธศาสตร์และแผนงาน</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นางสาวจารุวรรณ ดอกแก้ว</td>
+          <td>ผอ.กลุ่มพัฒนาระบบบริหาร</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA307</span>
+          <span class="roster-name">การบริหารจัดการบริการเทคโนโลยีสารสนเทศภายในองค์กร</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">8 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางไอย์นิชากรณ์ พันธ์งามตา</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายปรุฬห์ โพธิ์เที่ยง</td>
+          <td>นายช่างโยธาอาวุโส</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางณัฏฐวี แสงอรุณ</td>
+          <td>นักกายภาพบำบัดชำนาญการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายศิวณัติ เพชรย้อย</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวศุทธิกานต์ ชูขาว</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายรัชทิน ตาน้อย</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายเชาวลิต ปาระภา</td>
+          <td>เจ้าพนักงานธุรการปฏิบัติงาน</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวณัฎฐ์พัชร์ ยุติธรรม</td>
+          <td>เจ้าพนักงานธุรการปฏิบัติงาน</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA303</span>
+          <span class="roster-name">หลักสูตรการจัดทำธรรมาภิบาลข้อมูลภายในหน่วยงานสำหรับผู้ปฏิบัติงานภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">5 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวนภาพร สุวรรณโคตร</td>
+          <td>นักวิชาการคอมพิวเตอร์ชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นางสาวนภัทร จิระเดชธนากุล</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>ว่าที่ร.ต.สุรพงค์ พรมซา</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางจารุวรรณ ชินพัณณ์</td>
+          <td>เจ้าพนักงานธุรการชำนาญงาน</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายธรณ์เทพ แซ่อั้ง</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA502</span>
+          <span class="roster-name">หลักสูตรการบริหารโครงการดิจิทัล</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">15 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวสโรชา สุทธิจิต</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวนภาพร สุวรรณโคตร</td>
+          <td>นักวิชาการคอมพิวเตอร์ชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายนฤพนธ์ ทองสุข</td>
+          <td>นักทรัพยากรบุคคลชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายศิวณัติ เพชรย้อย</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายพันธ์ลพ วรวรรณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวฐิติกาญจน์ บำรุงชัยกุล</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายณัฐวุฒิ ชูชื่น</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>ร้อยโทกรกฤษณ์ ไวสติ</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายกิตติพงษ์ เนตรโพธิ์แก้ว</td>
+          <td>นักวิชาการโสตทัศนศึกษาปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นายชวกร ศรานนทวัฒน์</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        <tr>
+          <td>นางสาวศศลักษณ์ ศิริพิน</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นางสาวบัวบูชา แก้วสกุลณี</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นายธนพงษ์ คำปิน</td>
+          <td>นักพัฒนาการกีฬาปฏิบัติการ</td>
+          <td>สำนักการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวรภัส บุญวานิช</td>
+          <td>นักวิเคราะห์นโยบายและแผน</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวศิริวรรณภา เพ็งพันธุ์</td>
+          <td>นักวิเคราะห์นโยบายและแผน</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA501</span>
+          <span class="roster-name">หลักสูตรการบริหารแผนงานเชิงกลยุทธ์เพื่อการปรับสู่องค์กรดิจิทัล</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">10 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวฉัตรดาว อนุกูลประชา</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายภุชงค์ บุญรักษ์</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>ร้อยเอกหญิงปวีณา ทองสุก</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        </tr>
+        <tr>
+          <td>นางสาวรัชราวไล สว่างอรุณ</td>
+          <td>นักพัฒนาการกีฬาชำนาญการพิเศษ</td>
+          <td>สำนักนันทนาการ</td>
+        </tr>
+        <tr>
+          <td>นางชนกพิกษ์ฌาณ์ ชัยศักดิยศ</td>
+          <td>นักวิชาการตรวจสอบภายในชำนาญการ</td>
+          <td>กลุ่มตรวจสอบภายใน</td>
+        </tr>
+        <tr>
+          <td>นายวรพงศ์ สุขเกิด</td>
+          <td>นักพัฒนาการกีฬาชำนาญการ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นางจารุวรรณ ชินพัณณ์</td>
+          <td>เจ้าพนักงานธุรการชำนาญงาน</td>
+          <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        </tr>
+        <tr>
+          <td>นายจิรวัฒน์ ดวงธนู</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กองยุทธศาสตร์และแผนงาน</td>
+        </tr>
+        <tr>
+          <td>นายธนสิทธิ์ พูลสมบัติ</td>
+          <td>นักวิเคราะห์นโยบายและแผนปฏิบัติการ</td>
+          <td>กลุ่มพัฒนาระบบบริหาร</td>
+        </tr>
+        <tr>
+          <td>นายฐาปณัฐ ผลสุข</td>
+          <td>นักวิชาการคอมพิวเตอร์ปฏิบัติการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">DGA310</span>
+          <span class="roster-name">หลักสูตรการใช้เครื่องมือดิจิทัลและปัญญาประดิษฐ์อย่างมีประสิทธิภาพ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">1 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นางสาวนภาพร สุวรรณโคตร</td>
+          <td>นักวิชาการคอมพิวเตอร์ชำนาญการ</td>
+          <td>สำนักงานเลขานุการกรม</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="roster-card roster-card-special">
+      <div class="roster-head">
+        <div class="roster-head-title">
+          <span class="crs-code">GCIO</span>
+          <span class="roster-name">GCIO หลักสูตรผู้บริหารเทคโนโลยีสารสนเทศระดับสูงภาครัฐ</span>
+        </div>
+        <div class="roster-head-meta">
+          <span class="yr-badge yr-69">ปีงบ 69</span>
+          <span class="roster-count">1 คน</span>
+        </div>
+      </div>
+      <div class="roster-table-wrap">
+      <table class="roster-table">
+        <thead><tr><th>ชื่อ-สกุล</th><th>ตำแหน่ง</th><th>สังกัด</th></tr></thead>
+        <tbody>
+        <tr>
+          <td>นายสุรัตน์ จรณโยธิน</td>
+          <td>รองอธิบดีกรมพลศึกษา</td>
+          <td>-</td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="depts">
+  <div class="section-head"><span class="s-num">5</span><h2 class="s-title">สรุปการอบรมรายส่วนงาน</h2></div>
+  <div class="section-desc">
+    จากข้อมูลผู้เข้าอบรมจริงปีงบ 68-69 มี 11 หน่วยงานภายในกรมที่ส่งบุคลากรเข้าอบรม รวม 68 คน (นับไม่ซ้ำ)
+    เรียงตามจำนวนคนที่ส่งเข้าอบรมมากไปน้อย — หน่วยงานที่ยังส่งคนเข้าอบรมน้อยควรได้รับการผลักดันเพิ่มในปีงบถัดไป
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>จำนวนบุคลากรที่ผ่านการอบรม แยกตามส่วนงาน</h2>
+        <div class="card-sub">นับบุคคลไม่ซ้ำ (คนหนึ่งอาจอบรมหลายหลักสูตร นับครั้งเดียว)</div>
+      </div>
+    </div>
+    <div class="hbar-list">
+    <div class="hbar-row">
+      <div class="hbar-label">สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div>
+      <div class="hbar-value">13 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">สำนักวิทยาศาสตร์การกีฬา</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:92%"></div></div>
+      <div class="hbar-value">12 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">สำนักการกีฬา</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:85%"></div></div>
+      <div class="hbar-value">11 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">สำนักนันทนาการ</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:77%"></div></div>
+      <div class="hbar-value">10 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">สำนักงานเลขานุการกรม</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:62%"></div></div>
+      <div class="hbar-value">8 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">กองมาตรฐานอาคารสถานการกีฬา</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:38%"></div></div>
+      <div class="hbar-value">5 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">กองยุทธศาสตร์และแผนงาน</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:31%"></div></div>
+      <div class="hbar-value">4 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">กลุ่มพัฒนาระบบบริหาร</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:23%"></div></div>
+      <div class="hbar-value">3 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">กองการต่างประเทศ</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:8%"></div></div>
+      <div class="hbar-value">1 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">กลุ่มตรวจสอบภายใน</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:8%"></div></div>
+      <div class="hbar-value">1 คน</div>
+    </div>
+    <div class="hbar-row">
+      <div class="hbar-label">ผู้บริหารกรม (รองอธิบดี)</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:8%"></div></div>
+      <div class="hbar-value">1 คน</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>รายละเอียดรายส่วนงาน</h2>
+        <div class="card-sub">จำนวนคน ครั้งที่เข้าอบรม หลักสูตรที่ต่างกัน และด้านทักษะที่ได้รับ</div>
+      </div>
+    </div>
+    <div class="scroll-hint">เลื่อนดูข้อมูลเพิ่มเติม →</div>
+    <div class="table-wrap">
+    <table class="summary">
+      <thead>
+        <tr><th>ส่วนงาน</th><th class="num">คนที่อบรม</th><th class="num">ครั้งที่เข้าอบรม</th><th class="num">หลักสูตรต่างกัน</th><th>ด้านที่ครอบคลุม</th></tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>สถาบันพัฒนาบุคลากรการพลศึกษาและการกีฬา</td>
+        <td class="num">13</td>
+        <td class="num">19</td>
+        <td class="num">8</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-tech">Digital Technology</span><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-data">Data Utilization and Sharing</span></div></td>
+      </tr>
+      <tr>
+        <td>สำนักวิทยาศาสตร์การกีฬา</td>
+        <td class="num">12</td>
+        <td class="num">14</td>
+        <td class="num">8</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-tech">Digital Technology</span><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-sec">Cybersecurity</span></div></td>
+      </tr>
+      <tr>
+        <td>สำนักการกีฬา</td>
+        <td class="num">11</td>
+        <td class="num">14</td>
+        <td class="num">7</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-tech">Digital Technology</span></div></td>
+      </tr>
+      <tr>
+        <td>สำนักนันทนาการ</td>
+        <td class="num">10</td>
+        <td class="num">14</td>
+        <td class="num">8</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-tech">Digital Technology</span></div></td>
+      </tr>
+      <tr>
+        <td>สำนักงานเลขานุการกรม</td>
+        <td class="num">8</td>
+        <td class="num">21</td>
+        <td class="num">10</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-tech">Digital Technology</span></div></td>
+      </tr>
+      <tr>
+        <td>กองมาตรฐานอาคารสถานการกีฬา</td>
+        <td class="num">5</td>
+        <td class="num">8</td>
+        <td class="num">7</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-tech">Digital Technology</span><span class="sk-tag sk-data">Data Utilization and Sharing</span></div></td>
+      </tr>
+      <tr>
+        <td>กองยุทธศาสตร์และแผนงาน</td>
+        <td class="num">4</td>
+        <td class="num">9</td>
+        <td class="num">6</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-sec">Cybersecurity</span></div></td>
+      </tr>
+      <tr>
+        <td>กลุ่มพัฒนาระบบบริหาร</td>
+        <td class="num">3</td>
+        <td class="num">8</td>
+        <td class="num">7</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-lead">Digital Leadership</span><span class="sk-tag sk-data">Data Utilization and Sharing</span><span class="sk-tag sk-svc">Digital Service</span><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-sec">Cybersecurity</span></div></td>
+      </tr>
+      <tr>
+        <td>กองการต่างประเทศ</td>
+        <td class="num">1</td>
+        <td class="num">2</td>
+        <td class="num">2</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-gov">Digital Governance</span><span class="sk-tag sk-sec">Cybersecurity</span></div></td>
+      </tr>
+      <tr>
+        <td>กลุ่มตรวจสอบภายใน</td>
+        <td class="num">1</td>
+        <td class="num">2</td>
+        <td class="num">2</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag sk-sec">Cybersecurity</span><span class="sk-tag sk-lead">Digital Leadership</span></div></td>
+      </tr>
+      <tr>
+        <td>ผู้บริหารกรม (รองอธิบดี)</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td class="num">1</td>
+        <td><div class="grp-wrap" style="max-width:none;"><span class="sk-tag ">พิเศษ (นอกกรอบ DGA)</span></div></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="c-icon">!</div>
+    <div class="c-body">
+      <b>กองการต่างประเทศ</b> และ <b>กลุ่มตรวจสอบภายใน</b> ส่งบุคลากรเข้าอบรมเพียงหน่วยงานละ 1 คน (2 ครั้ง) ซึ่งน้อยที่สุดในบรรดาหน่วยงานที่มีข้อมูล
+      ควรพิจารณาผลักดันให้บุคลากรกลุ่มนี้เข้าถึงหลักสูตรพื้นฐาน (Digital Literacy) เพิ่มเติมในปีงบถัดไป
+    </div>
+  </div>
+  </section>
+
+  <section id="gaps">
+  <div class="section-head"><span class="s-num">6</span><h2 class="s-title">ช่องว่างทักษะที่กรมยังขาด</h2></div>
+  <div class="section-desc">
+    เทียบหลักสูตรที่กรมอบรมแล้วหรือจองแล้ว (17 หลักสูตร) กับหลักสูตรทั้งหมดในกรอบ DGA Digital Skill (27 หลักสูตร) แยกตามด้านทักษะ
+    เพื่อดูว่าด้านใดยังพัฒนาน้อยที่สุด
+  </div>
+
+  <div class="callout warn">
+    <div class="c-icon">!</div>
+    <div class="c-body">
+      มี <b>3 หลักสูตร</b> ที่ออกแบบมาสำหรับ<b>ทุกกลุ่มเป้าหมาย</b> (ทั้ง 6 กลุ่ม) แต่กรมยังไม่เคยส่งใครเข้าอบรมเลย ได้แก่
+      <b>DGA202</b> (การปฏิบัติตามกฎหมายและมาตรฐานด้านดิจิทัล), <b>DGA104</b> (ความมั่นคงปลอดภัยไซเบอร์พื้นฐาน) และ
+      <b>DGA701</b> (การปรับเปลี่ยนองค์กรภาครัฐสู่ดิจิทัลด้วยกระบวนการคิดเชิงออกแบบ) — ทั้งสามเป็นหลักสูตรพื้นฐานที่ควรมีลำดับความสำคัญสูงสุดในการวางแผนปีงบ 71
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>ความครอบคลุมตามด้านทักษะ</h2>
+        <div class="card-sub">สัดส่วนหลักสูตรที่อบรมแล้วต่อหลักสูตรทั้งหมดในแต่ละด้าน เรียงจากครอบคลุมน้อยที่สุด</div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-svc">Digital Service</span>
+        <span class="gap-frac">1/4 หลักสูตร (25%)</span>
+        <span class="gap-priority">ควรเร่งพัฒนา</span>
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:25%"></div></div>
+      <div class="gap-missing">ยังไม่ได้อบรม: <span class="miss-chip"><b>DGA401</b> หลักสูตรการวางแผนกลยุทธ์การให้บริการดิจิทัลภาครัฐ</span><span class="miss-chip"><b>DGA402</b> หลักสูตรการออกแบบบริการดิจิทัลภาครัฐ</span><span class="miss-chip"><b>DGA701</b> หลักสูตรการปรับเปลี่ยนองค์กรภาครัฐสู่ดิจิทัลด้วยกระบวนการคิดเชิงออกแบบ</span></div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-gov">Digital Governance</span>
+        <span class="gap-frac">3/6 หลักสูตร (50%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:50%"></div></div>
+      <div class="gap-missing">ยังไม่ได้อบรม: <span class="miss-chip"><b>DGA202</b> หลักสูตรการปฏิบัติตามกฎหมายและมาตรฐานด้านดิจิทัล</span><span class="miss-chip"><b>DGA204</b> หลักสูตรกฎหมายคุ้มครองข้อมูลส่วนบุคคลสำหรับผู้ปฏิบัติงานภาครัฐ</span><span class="miss-chip"><b>DGA206</b> หลักสูตรหลักการกฎหมายคุ้มครองข้อมูลส่วนบุคคลสำหรับผู้บริหารภาครัฐ</span></div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-sec">Cybersecurity</span>
+        <span class="gap-frac">2/3 หลักสูตร (67%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:67%"></div></div>
+      <div class="gap-missing">ยังไม่ได้อบรม: <span class="miss-chip"><b>DGA104</b> หลักสูตรความมั่นคงปลอดภัยไซเบอร์พื้นฐาน</span></div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-data">Data Utilization and Sharing</span>
+        <span class="gap-frac">4/6 หลักสูตร (67%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:67%"></div></div>
+      <div class="gap-missing">ยังไม่ได้อบรม: <span class="miss-chip"><b>DGA205</b> หลักสูตรกรอบธรรมาภิบาลข้อมูลภาครัฐสำหรับผู้บริหารยุคดิจิทัล</span><span class="miss-chip"><b>DGA305</b> หลักสูตรการวิเคราะห์ข้อมูลและการนำเสนอข้อมูลด้วยภาพ</span></div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-tech">Digital Technology</span>
+        <span class="gap-frac">2/3 หลักสูตร (67%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:67%"></div></div>
+      <div class="gap-missing">ยังไม่ได้อบรม: <span class="miss-chip"><b>DGA308</b> การพัฒนาซอฟต์แวร์สำหรับการบริการด้านดิจิทัลภาครัฐ</span></div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-lit">Digital Literacy</span>
+        <span class="gap-frac">2/2 หลักสูตร (100%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div>
+      <div class="gap-missing gap-complete">ครอบคลุมครบทุกหลักสูตรในด้านนี้แล้ว</div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-lead">Digital Leadership</span>
+        <span class="gap-frac">3/3 หลักสูตร (100%)</span>
+        
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div>
+      <div class="gap-missing gap-complete">ครอบคลุมครบทุกหลักสูตรในด้านนี้แล้ว</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>ความครอบคลุมตามกลุ่มเป้าหมาย</h2>
+        <div class="card-sub">สัดส่วนหลักสูตรที่กลุ่มนี้ได้อบรมแล้ว จากหลักสูตรทั้งหมดที่ออกแบบมาสำหรับกลุ่มนี้</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+    <table class="summary role-cov">
+      <thead>
+        <tr><th>กลุ่มเป้าหมาย</th><th class="num">หลักสูตร</th><th>สัดส่วนความครอบคลุม</th></tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>ผู้ปฏิบัติงาน IT</td>
+        <td class="num">13/19</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:68%"></div></div> <span class="num" style="font-size:12px;">68%</span></td>
+      </tr>
+      <tr>
+        <td>หัวหน้างาน/อำนวยการ IT</td>
+        <td class="num">10/17</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:59%"></div></div> <span class="num" style="font-size:12px;">59%</span></td>
+      </tr>
+      <tr>
+        <td>MCIO/DCIO</td>
+        <td class="num">10/17</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:59%"></div></div> <span class="num" style="font-size:12px;">59%</span></td>
+      </tr>
+      <tr>
+        <td>ผู้ปฏิบัติงาน Non-IT</td>
+        <td class="num">9/15</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:60%"></div></div> <span class="num" style="font-size:12px;">60%</span></td>
+      </tr>
+      <tr>
+        <td>หัวหน้างาน/อำนวยการ Non-IT</td>
+        <td class="num">10/16</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:62%"></div></div> <span class="num" style="font-size:12px;">62%</span></td>
+      </tr>
+      <tr>
+        <td>บริหาร</td>
+        <td class="num">10/16</td>
+        <td><div class="hbar-track" style="width:100px;display:inline-block;vertical-align:middle;"><div class="hbar-fill" style="width:62%"></div></div> <span class="num" style="font-size:12px;">62%</span></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  </section>
+
+  <section id="online">
+  <div class="section-head"><span class="s-num">7</span><h2 class="s-title">แนะนำหลักสูตรออนไลน์เพิ่มเติม</h2></div>
+  <div class="section-desc">
+    หลักสูตรออนไลน์แบบเรียนด้วยตนเอง ไม่มีค่าใช้จ่าย จาก 2 แหล่ง: บทเรียนออนไลน์ของสำนักงานพัฒนารัฐบาลดิจิทัล (สพร.) และ OCSC Learning Space ของสำนักงาน ก.พ.
+    ใช้เสริมหลักสูตร Face-to-face ที่กรมอบรมแล้ว (ต่อยอดความรู้เดิม) และเติมเต็มด้านที่ยังพัฒนาน้อย โดยไม่ต้องรองบประมาณอบรมแบบตัวต่อตัว
+  </div>
+
+  <div class="callout">
+    <div class="c-icon">★</div>
+    <div class="c-body">
+      <b>เรียนทดแทนได้ทันที:</b> หลักสูตร 3 รายการที่ยังไม่มีใครในกรมเข้าอบรมเลย (จากส่วนที่ 6) มีหลักสูตรออนไลน์ที่เนื้อหาตรงกันโดยตรง บุคลากรทุกกลุ่มเป้าหมายสามารถเริ่มเรียนได้ทันทีระหว่างรองบอบรมปีงบ 71
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>หลักสูตรทดแทนสำหรับ 3 หลักสูตรที่ยังไม่เคยอบรม</h2>
+        <div class="card-sub">จับคู่จากหลักสูตร Face-to-face เดิมสู่หลักสูตรออนไลน์ที่เนื้อหาใกล้เคียงที่สุด</div>
+      </div>
+    </div>
+      <div class="qw-row">
+        <div class="qw-from"><span class="crs-code">DGA202</span> การปฏิบัติตามกฎหมายและมาตรฐานด้านดิจิทัล</div>
+        <div class="qw-arrow">→</div>
+        <div class="qw-to"><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>แนวปฏิบัติกระบวนการด้านดิจิทัลภาครัฐเพื่อสนับสนุนการดำเนินการ ตาม พ.ร.บ. การปฏิบัติราชการทางอิเล็กทรอนิกส์ พ.ศ. 2565</span></div></div>
+      </div>
+      <div class="qw-row">
+        <div class="qw-from"><span class="crs-code">DGA104</span> ความมั่นคงปลอดภัยไซเบอร์พื้นฐาน</div>
+        <div class="qw-arrow">→</div>
+        <div class="qw-to"><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>Basic Cybersecurity Series หลักสูตรพัฒนาทักษะด้านความมั่นคงปลอดภัยทางไซเบอร์เบื้องต้น</span></div></div>
+      </div>
+      <div class="qw-row">
+        <div class="qw-from"><span class="crs-code">DGA701</span> การปรับเปลี่ยนองค์กรภาครัฐสู่ดิจิทัลด้วยกระบวนการคิดเชิงออกแบบ</div>
+        <div class="qw-arrow">→</div>
+        <div class="qw-to"><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การเปลี่ยนผ่านองค์กรดิจิทัลด้วยกระบวนการคิดเชิงออกแบบ</span></div></div>
+      </div>
+  </div>
+
+  <div class="section-desc" style="margin-top:28px;">
+    รายด้านทักษะ เรียงจากพัฒนาน้อยที่สุดไปมากที่สุด (สอดคล้องกับส่วนที่ 6) — ด้านที่ยังพัฒนาน้อยควร "เร่งพัฒนา" ด้วยหลักสูตรออนไลน์ก่อน
+    ส่วนด้านที่อบรมครบหรือเกือบครบแล้วใช้หลักสูตรออนไลน์เพื่อ "ต่อยอด" ความรู้เดิมให้ลึกขึ้น
+  </div>
+
+  <div class="card">
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-svc">Digital Service</span>
+        <span class="gap-frac">อบรมแล้ว 1/4 หลักสูตร (25%)</span>
+        <span class="gap-priority">ควรเร่งพัฒนา</span>
+      </div>
+      <div class="online-note">ด้านที่กรมพัฒนาน้อยที่สุด ควรเร่งให้บุคลากรที่เกี่ยวข้องกับงานออกแบบกระบวนงาน/บริการเริ่มจากหลักสูตรออนไลน์เหล่านี้ก่อนของบอบรมแบบตัวต่อตัว</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การออกแบบบริการภาครัฐ</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การเปลี่ยนผ่านองค์กรดิจิทัลด้วยกระบวนการคิดเชิงออกแบบ</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การออกแบบ UX/UI สุดปัง เพื่อดึงดูดความสนใจของผู้ใช้</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>จุดประกายความคิดเพื่อสร้างนวัตกรรม (Building an Innovation Mindset)</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS10 การออกแบบองค์กรดิจิทัล</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-gov">Digital Governance</span>
+        <span class="gap-frac">อบรมแล้ว 3/6 หลักสูตร (50%)</span>
+        <span class="gap-priority good">ต่อยอดความรู้เดิม</span>
+      </div>
+      <div class="online-note">มีพื้นฐานจาก DGA201/DGA301/GDPO ที่อบรมแล้ว ควรเติมเต็มด้านกฎหมาย/มาตรฐานที่ยังขาดด้วยหลักสูตรออนไลน์เหล่านี้</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>แนวปฏิบัติกระบวนการด้านดิจิทัลภาครัฐเพื่อสนับสนุนการดำเนินการ ตาม พ.ร.บ. การปฏิบัติราชการทางอิเล็กทรอนิกส์ พ.ศ. 2565</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>พระราชบัญญัติการบริหารงานและการให้บริการภาครัฐผ่านระบบดิจิทัล</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>กฎหมายคุ้มครองข้อมูลส่วนบุคคลสำหรับผู้ปฏิบัติงานภาครัฐ</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS09 การบริหารความเสี่ยงดิจิทัล</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS17 การสร้างความไว้วางใจในองค์กรด้วยเทคโนโลยีดิจิทัล</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-sec">Cybersecurity</span>
+        <span class="gap-frac">อบรมแล้ว 2/3 หลักสูตร (67%)</span>
+        <span class="gap-priority good">ต่อยอดความรู้เดิม</span>
+      </div>
+      <div class="online-note">บุคลากรที่ผ่าน DGA203/DGA309 แล้ว ควรเรียนออนไลน์เพิ่มเพื่อกระจายความตระหนักรู้พื้นฐานไปยังบุคลากรกลุ่มอื่นที่ยังไม่เคยอบรมด้านนี้เลย</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>Basic Cybersecurity Series หลักสูตรพัฒนาทักษะด้านความมั่นคงปลอดภัยทางไซเบอร์เบื้องต้น</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การสร้างความตระหนักรู้ความมั่นคงปลอดภัยไซเบอร์</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>ความเข้าใจการบริหารความเสี่ยงและความปลอดภัยไซเบอร์</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-data">Data Utilization and Sharing</span>
+        <span class="gap-frac">อบรมแล้ว 4/6 หลักสูตร (67%)</span>
+        <span class="gap-priority good">ต่อยอดความรู้เดิม</span>
+      </div>
+      <div class="online-note">ต่อยอดจาก DGA103/DGA303/DGA304/DGA306 ที่อบรมแล้ว — หลักสูตรออนไลน์ด้านการสร้างภาพข้อมูล/แดชบอร์ดเหมาะกับบุคลากรที่ต้องทำรายงานเชิงข้อมูลต่อผู้บริหารต่อไป</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>หลักการสร้างภาพข้อมูลและการออกแบบแดชบอร์ดอย่างมีประสิทธิภาพ</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การขับเคลื่อนด้วยข้อมูลสู่การเป็นรัฐบาลดิจิทัล</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>ความรู้ความเข้าใจข้อมูลสำหรับการวิเคราะห์ข้อมูล</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>ธรรมาภิบาลข้อมูลสำหรับผู้บริหารองค์กรรัฐ</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-tech">Digital Technology</span>
+        <span class="gap-frac">อบรมแล้ว 2/3 หลักสูตร (67%)</span>
+        <span class="gap-priority good">ต่อยอดความรู้เดิม</span>
+      </div>
+      <div class="online-note">ต่อยอดจาก DGA307/DGA310 ที่อบรมแล้ว โดยเฉพาะ DGA310 ที่เพิ่งเริ่มเรื่อง AI Tools — ควรตามด้วยชุดหลักสูตร AI ออนไลน์เหล่านี้เพื่อขยายผลทั่วทั้งกรม</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>Prompt Engineering: สู่การเป็นผู้เชี่ยวชาญ AI</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>AI for Everyone: ปัญญาประดิษฐ์เพื่ออนาคตของทุกคน</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>AI Governance & Ethic หลักการจริยธรรม ธรรมาภิบาล และข้อกฎหมายในการประยุกต์ใช้ AI</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS26 AI Basic</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS27 AI skills for all</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-lit">Digital Literacy</span>
+        <span class="gap-frac">อบรมแล้ว 2/2 หลักสูตร (100%)</span>
+        <span class="gap-priority good">ต่อยอด/รักษามาตรฐาน</span>
+      </div>
+      <div class="online-note">ครอบคลุมครบแล้วในหลักสูตรหลัก แต่ยังต่อยอดได้ด้วยหลักสูตรเครื่องมือปฏิบัติจริง เหมาะกับงานประชาสัมพันธ์และสื่อของกรมพลศึกษาโดยเฉพาะ</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS06 MS Office Excel 2016</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS07 MS PowerPoint Office 2016</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS16 การทำอินโฟกราฟิก (Infographic) เพื่อการประชาสัมพันธ์</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS18 การผลิตคลิปสั้นเพื่อการเรียนรู้แบบ Micro Learning</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS15 Google Tools เพื่อการพัฒนางาน</span></div>
+      </div>
+    </div>
+    <div class="gap-block">
+      <div class="gap-head">
+        <span class="sk-tag sk-lead">Digital Leadership</span>
+        <span class="gap-frac">อบรมแล้ว 3/3 หลักสูตร (100%)</span>
+        <span class="gap-priority good">ต่อยอด/รักษามาตรฐาน</span>
+      </div>
+      <div class="online-note">ครอบคลุมครบแล้ว เหมาะสำหรับผู้บริหาร/หัวหน้างานที่ผ่าน DGA501/DGA601 แล้วนำไปต่อยอดเป็นความรู้เชิงลึกต่อเนื่อง</div>
+      <div class="online-list">
+<div class="online-item"><span class="src-tag src-dep">สพร.</span><span>ภาวะผู้นำในยุคดิจิทัล (Digital Leadership)</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>Leadership on the Age of AI: ผู้นำในยุค AI</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>ความท้าทายของผู้นำภาครัฐในยุค VUCA world</span></div><div class="online-item"><span class="src-tag src-dep">สพร.</span><span>การบริหารจัดการโครงสร้างด้วยอไจล์ (Agile Project Management)</span></div><div class="online-item"><span class="src-tag src-ocsc">ก.พ.</span><span>DS14 การขับเคลื่อนการเปลี่ยนผ่านสู่รัฐบาลดิจิทัล</span></div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <footer>
+    ที่มา: รายชื่อผู้เข้ารับการอบรม DGA68-69.xlsx (สรุปงบ, รายชื่อผู้อบรมปี 68/69, แผนการพัฒนาคนปี 67-70), ปฏิทินจัดอบรมงบบูรณาการปี 70 กรมพลศึกษา, DGA Digital Skill.xlsx (หลักสูตร) และเปรียบเทียบ DGA/สพร./ก.พ. (หลักสูตรออนไลน์) · ตัวเลขปีงบ 70 คำนวณจากยอดจองอบรมที่ยืนยันแล้ว ยังไม่ใช่ผลการอบรมจริงเนื่องจากปีงบยังไม่เริ่ม
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const data = [
+    { fy: 'ปีงบ 67', plan: 690000, actual: 0, tag: null },
+    { fy: 'ปีงบ 68', plan: 3338600, actual: 998600, tag: null },
+    { fy: 'ปีงบ 69', plan: 3390000, actual: 674900, tag: null },
+    { fy: 'ปีงบ 70', plan: 4040000, actual: 708000, tag: 'ยอดจอง' },
+  ];
+
+  const svg = document.getElementById('budgetChart');
+  const tooltip = document.getElementById('tooltip');
+  const wrap = document.getElementById('chartWrap');
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const W = 820, H = 380;
+  const marginL = 64, marginR = 16, marginT = 20, marginB = 46;
+  const plotW = W - marginL - marginR;
+  const plotH = H - marginT - marginB;
+
+  const maxVal = 4500000;
+  const yTicks = [0, 1000000, 2000000, 3000000, 4000000];
+
+  function y(v){ return marginT + plotH - (v / maxVal) * plotH; }
+  function fmtBaht(v){ return v.toLocaleString('en-US'); }
+  function fmtAxis(v){
+    if (v === 0) return '0';
+    return (v/1000000).toFixed(0) + ' ล้าน';
+  }
+
+  function el(tag, attrs, parent){
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  // gridlines + axis labels
+  yTicks.forEach(t => {
+    el('line', { class:'grid-line', x1: marginL, x2: W - marginR, y1: y(t), y2: y(t) }, svg);
+    el('text', { class:'axis-label', x: marginL - 10, y: y(t) + 4, 'text-anchor':'end' }, svg).textContent = fmtAxis(t);
+  });
+  // baseline
+  el('line', { class:'grid-line', x1: marginL, x2: W - marginR, y1: y(0), y2: y(0), style:'stroke-width:1.5' }, svg);
+
+  const groupW = plotW / data.length;
+  const barW = groupW * 0.28;
+  const barGap = groupW * 0.06;
+
+  data.forEach((d, i) => {
+    const gx = marginL + i * groupW;
+    const centerX = gx + groupW / 2;
+
+    // group label
+    const labelEl = el('text', { class:'bar-group-label', x: centerX, y: H - marginB + 22 }, svg);
+    labelEl.textContent = d.fy;
+    if (d.tag) {
+      const tagEl = el('text', { class:'bar-group-label', x: centerX, y: H - marginB + 36, style:'font-weight:500;font-size:10.5px;fill:var(--text-muted)' }, svg);
+      tagEl.textContent = '(' + d.tag + ')';
+    }
+
+    // plan bar
+    const planX = centerX - barGap/2 - barW;
+    const planH = plotH - (y(d.plan) - marginT);
+    const planRect = el('rect', {
+      class:'bar', x: planX, y: y(d.plan), width: barW, height: Math.max(planH,0),
+      fill: 'var(--series-plan)', rx: 3
+    }, svg);
+    planRect.addEventListener('mousemove', (e)=>showTip(e, d.fy + ' · แผนงบประมาณ', fmtBaht(d.plan) + ' บาท'));
+    planRect.addEventListener('mouseleave', hideTip);
+
+    // actual bar
+    const actualX = centerX + barGap/2;
+    const actualH = plotH - (y(d.actual) - marginT);
+    const actualRect = el('rect', {
+      class:'bar', x: actualX, y: y(d.actual), width: barW, height: Math.max(actualH,0),
+      fill: 'var(--series-actual)', rx: 3
+    }, svg);
+    const util = d.plan ? (d.actual / d.plan * 100) : 0;
+    actualRect.addEventListener('mousemove', (e)=>showTip(e, d.fy + ' · ผลการใช้จ่ายจริง', fmtBaht(d.actual) + ' บาท (' + util.toFixed(1) + '% ของแผน)'));
+    actualRect.addEventListener('mouseleave', hideTip);
+
+    // utilization badge above actual bar
+    const badgeY = Math.max(y(d.actual) - 18, marginT + 10);
+    const badgeText = util.toFixed(0) + '%';
+    const badgeW = Math.max(26, badgeText.length * 8 + 10);
+    el('rect', { class:'util-badge-bg', x: actualX + barW/2 - badgeW/2, y: badgeY - 13, width: badgeW, height: 18, rx: 9 }, svg);
+    const bt = el('text', { class:'util-badge-text', x: actualX + barW/2, y: badgeY }, svg);
+    bt.setAttribute('fill', 'var(--text-primary)');
+    bt.textContent = badgeText;
+  });
+
+  function showTip(e, title, value){
+    const rect = wrap.getBoundingClientRect();
+    tooltip.innerHTML = '<div>' + title + '</div><div><b>' + value + '</b></div>';
+    tooltip.style.left = (e.clientX - rect.left) + 'px';
+    tooltip.style.top = (e.clientY - rect.top) + 'px';
+    tooltip.classList.add('show');
+  }
+  function hideTip(){ tooltip.classList.remove('show'); }
+})();
+</script>
