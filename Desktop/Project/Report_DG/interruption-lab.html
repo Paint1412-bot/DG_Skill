@@ -1,0 +1,878 @@
+<title>แล็บทดลองขัดจังหวะ 2-Back</title>
+<style>
+  :root{
+    --paper:#eef1f4;
+    --surface:#ffffff;
+    --surface-2:#f6f8fa;
+    --ink:#161b22;
+    --ink-soft:#4b5563;
+    --ink-faint:#8792a0;
+    --line:#d8dee5;
+    --line-strong:#c1cad3;
+    --accent:#1c7a8c;
+    --accent-strong:#125d6c;
+    --accent-soft:#dcf0f0;
+    --good:#2f9660;
+    --good-soft:#e1f3e9;
+    --bad:#c94f3d;
+    --bad-soft:#fbe6e2;
+    --warn:#b8791f;
+    --warn-soft:#f6e8d3;
+    --shadow:0 1px 2px rgba(22,27,34,.06), 0 8px 24px -12px rgba(22,27,34,.18);
+    --font-display:'IBM Plex Sans Condensed','Arial Narrow',sans-serif;
+    --font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --font-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#10151b;
+      --surface:#182029;
+      --surface-2:#1d2731;
+      --ink:#edf1f4;
+      --ink-soft:#a3aebb;
+      --ink-faint:#6c7885;
+      --line:#2a333d;
+      --line-strong:#3a4552;
+      --accent:#4fc3d6;
+      --accent-strong:#7ad7e6;
+      --accent-soft:#193339;
+      --good:#4bbf85;
+      --good-soft:#163827;
+      --bad:#e37461;
+      --bad-soft:#3a221e;
+      --warn:#e0a94f;
+      --warn-soft:#3a2e17;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#10151b;
+    --surface:#182029;
+    --surface-2:#1d2731;
+    --ink:#edf1f4;
+    --ink-soft:#a3aebb;
+    --ink-faint:#6c7885;
+    --line:#2a333d;
+    --line-strong:#3a4552;
+    --accent:#4fc3d6;
+    --accent-strong:#7ad7e6;
+    --accent-soft:#193339;
+    --good:#4bbf85;
+    --good-soft:#163827;
+    --bad:#e37461;
+    --bad-soft:#3a221e;
+    --warn:#e0a94f;
+    --warn-soft:#3a2e17;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:15px;
+    line-height:1.6;
+    padding-inline:16px;
+    padding-block:32px;
+  }
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+
+  /* ---------- header ---------- */
+  .page-head{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-strong);
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(1.55rem,1.15rem + 1.8vw,2.15rem);
+    line-height:1.1;
+    margin:0;
+    text-wrap:balance;
+    letter-spacing:-.01em;
+  }
+  .subtitle{
+    color:var(--ink-soft);
+    font-size:.95rem;
+    max-width:60ch;
+  }
+
+  /* ---------- legend / instructions ---------- */
+  details.legend{
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--surface-2);
+    padding:2px 16px;
+  }
+  details.legend summary{
+    cursor:pointer;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1rem;
+    padding-block:12px;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details.legend summary::-webkit-details-marker{display:none;}
+  details.legend summary::before{
+    content:"▸";
+    color:var(--accent);
+    transition:transform .15s ease;
+    font-size:.85em;
+  }
+  details.legend[open] summary::before{transform:rotate(90deg);}
+  .legend-body{
+    padding-block:2px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .legend-body p{margin:0;color:var(--ink-soft);max-width:64ch;font-size:.92rem;}
+  .legend-body strong{color:var(--ink);}
+  .legend-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .legend-chip{
+    display:flex;align-items:center;gap:6px;
+    font-family:var(--font-mono);font-size:.78rem;
+    border:1px solid var(--line);border-radius:999px;
+    padding:4px 10px 4px 8px;background:var(--surface);color:var(--ink-soft);
+  }
+  .legend-chip i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+  .keys{
+    font-family:var(--font-mono);
+    font-size:.82rem;
+    color:var(--ink-soft);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:8px 10px;
+  }
+  .keys b{color:var(--ink);}
+
+  /* ---------- console card ---------- */
+  .console{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .console > section{
+    padding:16px 20px;
+    border-top:1px solid var(--line);
+  }
+  .console > section:first-child{border-top:none;}
+
+  /* status bar */
+  .statusbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    background:var(--surface-2);
+  }
+  .badge{
+    font-family:var(--font-mono);
+    font-size:.74rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:999px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .badge-pre{background:var(--accent-soft);color:var(--accent-strong);}
+  .badge-resume{background:var(--warn-soft);color:var(--warn);}
+  .badge-interrupt{background:var(--bad-soft);color:var(--bad);}
+  .badge-warmup{background:var(--surface);color:var(--ink-faint);border:1px dashed var(--line-strong);}
+  .badge-idle{background:var(--surface);color:var(--ink-faint);border:1px solid var(--line);}
+  .statusbar .meta{
+    font-family:var(--font-mono);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+    text-align:right;
+  }
+  .statusbar .meta .sub{display:block;color:var(--ink-faint);font-size:.72rem;margin-top:2px;}
+
+  /* stage */
+  .stage{
+    min-height:250px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-block:24px;
+  }
+  .grid3{
+    display:grid;
+    grid-template-columns:repeat(3, clamp(52px,16vw,76px));
+    grid-template-rows:repeat(3, clamp(52px,16vw,76px));
+    gap:10px;
+  }
+  .cell{
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    background:var(--surface);
+    transition:background .12s ease, border-color .12s ease, transform .12s ease;
+  }
+  .cell.center{
+    border:none;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--line-strong);
+    font-family:var(--font-mono);
+  }
+  .cell.center::before{content:"+";font-size:1.1rem;}
+  .cell.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    transform:scale(1.04);
+  }
+  .cell.flash-good{background:var(--good);border-color:var(--good);}
+  .cell.flash-bad{background:var(--bad);border-color:var(--bad);}
+
+  .math-card{
+    text-align:center;
+    display:flex;flex-direction:column;gap:10px;align-items:center;
+  }
+  .math-eq{
+    font-family:var(--font-mono);
+    font-size:clamp(1.8rem,1.3rem + 2vw,2.6rem);
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:18px 28px;
+    background:var(--surface-2);
+  }
+  .math-eq.flash-good{border-color:var(--good);background:var(--good-soft);}
+  .math-eq.flash-bad{border-color:var(--bad);background:var(--bad-soft);}
+  .math-hint{color:var(--ink-soft);font-size:.85rem;}
+
+  .start-card, .results-intro{
+    text-align:center;
+    display:flex;flex-direction:column;gap:14px;align-items:center;
+    max-width:46ch;
+  }
+  .start-card p, .results-intro p{color:var(--ink-soft);margin:0;font-size:.92rem;}
+
+  .warmup-card{
+    text-align:center;
+    display:flex;flex-direction:column;gap:12px;align-items:center;
+  }
+  .warmup-card p{color:var(--ink-soft);font-size:.85rem;margin:0;max-width:34ch;}
+
+  /* controls */
+  .controls{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  button{
+    font-family:var(--font-body);
+    font-size:.92rem;
+    font-weight:500;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .12s ease, border-color .12s ease, transform .06s ease;
+  }
+  button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  .btn{
+    padding:11px 18px;
+    border:1.5px solid var(--line-strong);
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .btn:hover{border-color:var(--accent);color:var(--accent-strong);}
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{
+    padding:12px 22px;
+    border:1.5px solid var(--accent);
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:var(--accent-strong);border-color:var(--accent-strong);}
+  .btn kbd{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    opacity:.65;
+    margin-left:6px;
+  }
+  .btn-ghost{
+    background:transparent;border:1px solid transparent;color:var(--ink-faint);
+    font-size:.8rem;padding:6px 10px;
+  }
+  .btn-ghost:hover{color:var(--ink-soft);border-color:var(--line);}
+
+  /* timeline strip */
+  .timeline-wrap{background:var(--surface-2);}
+  .timeline-label{
+    font-family:var(--font-mono);font-size:.72rem;color:var(--ink-faint);
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;
+  }
+  .timeline{
+    display:flex;
+    gap:3px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:thin;
+  }
+  .chip{
+    flex:0 0 auto;
+    width:7px;height:20px;
+    border-radius:2px;
+    background:var(--line);
+    opacity:.55;
+    transition:opacity .1s ease, transform .1s ease;
+  }
+  .chip.pre{background:var(--accent);}
+  .chip.resume{background:var(--warn);}
+  .chip.math{background:var(--bad);height:12px;align-self:center;}
+  .chip.done{opacity:.9;}
+  .chip.current{opacity:1;transform:scaleY(1.25);box-shadow:0 0 0 2px var(--surface), 0 0 0 3px var(--ink-faint);}
+
+  /* stats */
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .stat{
+    background:var(--surface);
+    padding:12px 14px;
+    display:flex;flex-direction:column;gap:2px;
+  }
+  .stat .label{font-size:.72rem;color:var(--ink-faint);}
+  .stat .value{
+    font-family:var(--font-mono);
+    font-size:1.3rem;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+  .stat.resume .value{color:var(--warn);}
+
+  /* results chart */
+  .results-wrap{display:flex;flex-direction:column;gap:18px;}
+  .chart-block h3{
+    font-family:var(--font-display);font-size:.95rem;font-weight:600;
+    margin:0 0 10px 0;color:var(--ink-soft);
+  }
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .bar-row .bar-label{width:96px;flex:0 0 auto;font-size:.8rem;color:var(--ink-soft);}
+  .bar-track{flex:1;background:var(--surface-2);border-radius:5px;height:20px;position:relative;overflow:hidden;border:1px solid var(--line);}
+  .bar-fill{height:100%;border-radius:4px 0 0 4px;transition:width .5s ease;}
+  .bar-fill.pre{background:var(--accent);}
+  .bar-fill.resume{background:var(--warn);}
+  .bar-val{
+    width:66px;flex:0 0 auto;text-align:right;
+    font-family:var(--font-mono);font-size:.82rem;font-variant-numeric:tabular-nums;color:var(--ink);
+  }
+  .insight{
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:.92rem;
+    color:var(--ink);
+  }
+  .insight b{color:var(--accent-strong);}
+
+  /* footer */
+  footer{
+    color:var(--ink-faint);
+    font-size:.78rem;
+    line-height:1.7;
+    max-width:64ch;
+  }
+  footer a{color:var(--ink-soft);}
+
+  [hidden]{display:none!important;}
+  @media (prefers-reduced-motion: reduce){
+    *{transition-duration:0.001ms!important;}
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="eyebrow">Spatial 2-Back · Interruption Paradigm</span>
+    <h1>แล็บทดลองขัดจังหวะ 2-Back</h1>
+    <p class="subtitle">เดโมโต้ตอบสำหรับอธิบายวิธีการทดลอง — จำลองงานความจำใช้งาน (spatial 2-back) ที่ถูกขัดจังหวะด้วยโจทย์เลข อ้างอิงโครงสร้างจาก Chen, Fang, Bao &amp; Guo (2022)</p>
+  </div>
+
+  <details class="legend" open>
+    <summary>วิธีเล่น และความหมายของแต่ละช่วง</summary>
+    <div class="legend-body">
+      <p><strong>กติกา 2-back:</strong> จะมีสี่เหลี่ยมโผล่ขึ้นทีละตำแหน่งในตาราง 3×3 (ไม่ใช้ช่องกลาง) หน้าที่ของคุณคือจำไว้ว่า <strong>ตำแหน่งปัจจุบันตรงกับตำแหน่งเมื่อ 2 รอบก่อนหน้าหรือไม่</strong> แล้วกดปุ่มให้ตรง — สองรอบแรกสุดของเดโมจะยังตอบไม่ได้ เพราะยังไม่มีข้อมูลย้อนหลังพอให้เทียบ</p>
+      <p><strong>สิ่งที่จะเกิดขึ้น:</strong> หลังเล่น 2-back ไปสักพัก จะมี <strong>โจทย์เลข 5 ข้อ</strong> มาแทรกกะทันหัน (จำลองการถูกขัดจังหวะ) พอทำโจทย์เลขเสร็จ ให้กลับมาเล่น 2-back ต่อทันที — 2 รอบแรกหลังกลับมาคือช่วงที่นักวิจัยสนใจที่สุด เพราะเป็นช่วงที่มักตอบช้าและพลาดบ่อยที่สุด วนแบบนี้ทั้งหมด <span class="num-interrupts">6</span> รอบของการขัดจังหวะ</p>
+      <div class="legend-chips">
+        <span class="legend-chip"><i style="background:var(--accent)"></i>ก่อนขัดจังหวะ (pre-interruption)</span>
+        <span class="legend-chip"><i style="background:var(--bad)"></i>กำลังถูกขัดจังหวะ (โจทย์เลข)</span>
+        <span class="legend-chip"><i style="background:var(--warn)"></i>กลับมาทำงานต่อ (resumption)</span>
+      </div>
+      <p class="keys">ปุ่มลัดคีย์บอร์ด: <b>F</b> = ตรงกัน / น้อยกว่า 50 &nbsp;·&nbsp; <b>J</b> = ไม่ตรงกัน / มากกว่าหรือเท่ากับ 50</p>
+      <p style="font-size:.82rem">หมายเหตุ: เดโมนี้เป็นการย่อขนาดเพื่อการนำเสนอ — ใช้การขัดจังหวะ <span class="num-interrupts">6</span> ครั้ง (ต้นฉบับใช้ 12 ครั้ง) และให้ตอบตามจังหวะของคุณเองแทนการจับเวลาแบบ 500/2000 มิลลิวินาทีในห้องแล็บจริง เพื่อให้อธิบายแต่ละขั้นตอนได้ทันขณะนำเสนอ</p>
+    </div>
+  </details>
+
+  <div class="console">
+
+    <section class="statusbar">
+      <span class="badge badge-idle" id="phaseBadge">ยังไม่เริ่ม</span>
+      <span class="meta" id="statusMeta">กดเริ่มทดลองด้านล่าง<span class="sub">&nbsp;</span></span>
+    </section>
+
+    <section class="stage" id="stage">
+      <div class="start-card">
+        <p>ตัวอย่างสิ่งเร้า (ตำแหน่งสุ่ม) — กดเริ่มเพื่อให้ระบบสร้างลำดับการทดลองใหม่แบบสุ่ม</p>
+        <div class="grid3" id="startGrid"></div>
+        <button class="btn-primary" id="startBtn">เริ่มทดลอง</button>
+      </div>
+    </section>
+
+    <section class="controls" id="controls" hidden></section>
+
+    <section class="timeline-wrap">
+      <div class="timeline-label">ลำดับรอบทั้งหมดในการทดลองนี้</div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat pre">
+        <span class="label">RT เฉลี่ย · ก่อนขัดจังหวะ</span>
+        <span class="value" id="statPreRT">— ms</span>
+      </div>
+      <div class="stat resume">
+        <span class="label">RT เฉลี่ย · หลังกลับมาทำงาน</span>
+        <span class="value" id="statResumeRT">— ms</span>
+      </div>
+      <div class="stat pre">
+        <span class="label">ความแม่นยำ · ก่อนขัดจังหวะ</span>
+        <span class="value" id="statPreAcc">—%</span>
+      </div>
+      <div class="stat resume">
+        <span class="label">ความแม่นยำ · หลังกลับมาทำงาน</span>
+        <span class="value" id="statResumeAcc">—%</span>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    เดโมนี้สร้างขึ้นเพื่อการนำเสนอ/ประกอบการสอนเท่านั้น ไม่ใช่เครื่องมือเก็บข้อมูลวิจัย — จำลองโครงสร้างงาน spatial 2-back + interruption จาก Chen, Y.-Y., Fang, W.-N., Bao, H.-F., &amp; Guo, B.-Y. (2022). The Effect of Task Interruption on Working Memory Performance. <i>Human Factors, 66</i>(4), 1132–1151.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var POSITIONS = [0,1,2,3,5,6,7,8]; // 3x3 grid, index 4 = center, unused
+  var NUM_INTERRUPTS = 3;
+  var PRE_LEN = 4; // 2-back trials per pre-interruption segment (simplified from 12 in the original study)
+
+  document.querySelectorAll('.num-interrupts').forEach(function(el){
+    el.textContent = NUM_INTERRUPTS;
+  });
+
+  var els = {
+    phaseBadge: document.getElementById('phaseBadge'),
+    statusMeta: document.getElementById('statusMeta'),
+    stage: document.getElementById('stage'),
+    controls: document.getElementById('controls'),
+    timeline: document.getElementById('timeline'),
+    startBtn: document.getElementById('startBtn'),
+    startGrid: document.getElementById('startGrid'),
+    statPreRT: document.getElementById('statPreRT'),
+    statResumeRT: document.getElementById('statResumeRT'),
+    statPreAcc: document.getElementById('statPreAcc'),
+    statResumeAcc: document.getElementById('statResumeAcc')
+  };
+
+  var timeline = [];
+  var pointer = 0;
+  var started = false;
+  var locked = false;
+  var trialStart = 0;
+  var stats = { pre:{n:0,correct:0,rtSum:0}, resume:{n:0,correct:0,rtSum:0} };
+  var chipEls = [];
+
+  function rand(n){ return Math.floor(Math.random()*n); }
+
+  function renderStartGrid(){
+    els.startGrid.innerHTML = '';
+    var active = POSITIONS[rand(POSITIONS.length)];
+    for (var i=0;i<9;i++){
+      var d = document.createElement('div');
+      if (i===4){ d.className = 'cell center'; }
+      else { d.className = 'cell' + (i===active ? ' active' : ''); }
+      els.startGrid.appendChild(d);
+    }
+  }
+  renderStartGrid();
+
+  function buildTimeline(){
+    var tl = [];
+    var posHistory = [];
+
+    function pushBack(phase, interruptionIndex, posInSeg, segLen){
+      var idx = posHistory.length;
+      var warmup = idx < 2;
+      var position, isMatch;
+      if (warmup){
+        position = POSITIONS[rand(POSITIONS.length)];
+        isMatch = null;
+      } else {
+        var twoBack = posHistory[idx-2];
+        isMatch = Math.random() < 0.5;
+        if (isMatch){
+          position = twoBack;
+        } else {
+          var choices = POSITIONS.filter(function(p){ return p !== twoBack; });
+          position = choices[rand(choices.length)];
+        }
+      }
+      posHistory.push(position);
+      tl.push({
+        type:'back', phase:phase, interruptionIndex:interruptionIndex,
+        warmup:warmup, position:position, isMatch:isMatch,
+        posInSeg:posInSeg, segLen:segLen
+      });
+    }
+
+    function pushMathBlock(interruptionIndex){
+      for (var k=0;k<5;k++){
+        var a = 1 + rand(69);
+        var maxB = Math.max(1, 100 - a);
+        var b = 1 + rand(maxB);
+        var sum = a + b;
+        tl.push({
+          type:'math', phase:'interrupt', interruptionIndex:interruptionIndex,
+          a:a, b:b, sum:sum, sumGE50: sum >= 50,
+          qIndex:k+1, qTotal:5
+        });
+      }
+    }
+
+    for (var i=0;i<PRE_LEN;i++) pushBack('pre', 1, i+1, PRE_LEN);
+
+    for (var n=1; n<=NUM_INTERRUPTS; n++){
+      pushMathBlock(n);
+      pushBack('resume', n, 1, 2);
+      pushBack('resume', n, 2, 2);
+      if (n < NUM_INTERRUPTS){
+        for (var j=0;j<PRE_LEN;j++) pushBack('pre', n+1, j+1, PRE_LEN);
+      }
+    }
+    return tl;
+  }
+
+  function buildChips(){
+    els.timeline.innerHTML = '';
+    chipEls = timeline.map(function(step){
+      var c = document.createElement('div');
+      c.className = 'chip ' + (step.type==='math' ? 'math' : step.phase);
+      els.timeline.appendChild(c);
+      return c;
+    });
+  }
+
+  function updateChips(){
+    for (var i=0;i<chipEls.length;i++){
+      chipEls[i].classList.toggle('done', i < pointer);
+      chipEls[i].classList.toggle('current', i === pointer);
+    }
+    if (chipEls[pointer]) {
+      chipEls[pointer].scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' });
+    }
+  }
+
+  function fmtBadge(step){
+    if (!step) return;
+    if (step.type === 'math'){
+      els.phaseBadge.className = 'badge badge-interrupt';
+      els.phaseBadge.textContent = 'กำลังถูกขัดจังหวะ';
+      els.statusMeta.innerHTML = 'โจทย์เลขข้อที่ ' + step.qIndex + ' / ' + step.qTotal +
+        '<span class="sub">การขัดจังหวะครั้งที่ ' + step.interruptionIndex + ' จาก ' + NUM_INTERRUPTS + '</span>';
+    } else if (step.warmup){
+      els.phaseBadge.className = 'badge badge-warmup';
+      els.phaseBadge.textContent = 'กำลังจำตำแหน่ง';
+      els.statusMeta.innerHTML = 'รอบที่ ' + (pointer+1) + ' — ยังไม่มีข้อมูลย้อนหลังให้เทียบ<span class="sub">&nbsp;</span>';
+    } else if (step.phase === 'resume'){
+      els.phaseBadge.className = 'badge badge-resume';
+      els.phaseBadge.textContent = 'กลับมาทำงานต่อ';
+      els.statusMeta.innerHTML = 'รอบ resumption ที่ ' + step.posInSeg + ' / ' + step.segLen +
+        '<span class="sub">หลังการขัดจังหวะครั้งที่ ' + step.interruptionIndex + '</span>';
+    } else {
+      els.phaseBadge.className = 'badge badge-pre';
+      els.phaseBadge.textContent = 'ก่อนขัดจังหวะ';
+      els.statusMeta.innerHTML = 'รอบที่ ' + step.posInSeg + ' / ' + step.segLen +
+        '<span class="sub">ก่อนการขัดจังหวะครั้งที่ ' + step.interruptionIndex + '</span>';
+    }
+  }
+
+  function updateStatsPanel(){
+    var p = stats.pre, r = stats.resume;
+    els.statPreRT.textContent = p.n ? Math.round(p.rtSum/p.n) + ' ms' : '— ms';
+    els.statResumeRT.textContent = r.n ? Math.round(r.rtSum/r.n) + ' ms' : '— ms';
+    els.statPreAcc.textContent = p.n ? Math.round(100*p.correct/p.n) + '%' : '—%';
+    els.statResumeAcc.textContent = r.n ? Math.round(100*r.correct/r.n) + '%' : '—%';
+  }
+
+  function renderGrid(activePos, flashClass){
+    var wrap = document.createElement('div');
+    wrap.className = 'grid3';
+    for (var i=0;i<9;i++){
+      var d = document.createElement('div');
+      if (i===4){ d.className='cell center'; }
+      else {
+        d.className = 'cell' + (i===activePos ? ' active' : '');
+        if (i===activePos && flashClass) d.className += ' ' + flashClass;
+      }
+      wrap.appendChild(d);
+    }
+    return wrap;
+  }
+
+  function renderControls(html){
+    els.controls.innerHTML = html;
+    els.controls.hidden = false;
+  }
+
+  function renderBackStep(step){
+    els.stage.innerHTML = '';
+    els.stage.appendChild(renderGrid(step.position, null));
+    trialStart = performance.now();
+
+    if (step.warmup){
+      var card = document.createElement('div');
+      card.className = 'warmup-card';
+      card.innerHTML = '<p>จำตำแหน่งนี้ไว้ก่อน ยังไม่ต้องตอบ — รอบถัดไปจะเริ่มเทียบกับตำแหน่งย้อนหลัง</p>';
+      els.stage.appendChild(card);
+      renderControls('<button class="btn-primary" id="warmupNext">ไปต่อ →</button>');
+      document.getElementById('warmupNext').addEventListener('click', function(){ advance(); });
+      return;
+    }
+
+    renderControls(
+      '<button class="btn" id="btnMatch">ตรงกัน <kbd>F</kbd></button>' +
+      '<button class="btn" id="btnNoMatch">ไม่ตรงกัน <kbd>J</kbd></button>'
+    );
+    document.getElementById('btnMatch').addEventListener('click', function(){ respondBack(true); });
+    document.getElementById('btnNoMatch').addEventListener('click', function(){ respondBack(false); });
+  }
+
+  function renderMathStep(step){
+    els.stage.innerHTML = '';
+    var card = document.createElement('div');
+    card.className = 'math-card';
+    card.innerHTML =
+      '<div class="math-eq" id="mathEq">' + step.a + ' + ' + step.b + '</div>' +
+      '<p class="math-hint">ผลบวกนี้ มากกว่าหรือเท่ากับ 50 หรือไม่?</p>';
+    els.stage.appendChild(card);
+    trialStart = performance.now();
+
+    renderControls(
+      '<button class="btn" id="btnLT">น้อยกว่า 50 <kbd>F</kbd></button>' +
+      '<button class="btn" id="btnGE">มากกว่าหรือเท่ากับ 50 <kbd>J</kbd></button>'
+    );
+    document.getElementById('btnLT').addEventListener('click', function(){ respondMath(false); });
+    document.getElementById('btnGE').addEventListener('click', function(){ respondMath(true); });
+  }
+
+  function respondBack(matchBool){
+    if (locked) return;
+    locked = true;
+    var step = timeline[pointer];
+    var rt = Math.round(performance.now() - trialStart);
+    var correct = (matchBool === step.isMatch);
+
+    var s = stats[step.phase];
+    s.n++; s.rtSum += rt; if (correct) s.correct++;
+    updateStatsPanel();
+
+    var cell = els.stage.querySelector('.cell.active');
+    if (cell) cell.classList.add(correct ? 'flash-good' : 'flash-bad');
+    els.controls.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
+
+    setTimeout(function(){ pointer++; locked = false; renderCurrent(); }, 420);
+  }
+
+  function respondMath(answerGE50){
+    if (locked) return;
+    locked = true;
+    var step = timeline[pointer];
+    var correct = (answerGE50 === step.sumGE50);
+    var eq = document.getElementById('mathEq');
+    if (eq) eq.classList.add(correct ? 'flash-good' : 'flash-bad');
+    els.controls.querySelectorAll('button').forEach(function(b){ b.disabled = true; });
+
+    setTimeout(function(){ pointer++; locked = false; renderCurrent(); }, 420);
+  }
+
+  function advance(){
+    pointer++;
+    renderCurrent();
+  }
+
+  function renderCurrent(){
+    updateChips();
+    if (pointer >= timeline.length){
+      showResults();
+      return;
+    }
+    var step = timeline[pointer];
+    fmtBadge(step);
+    if (step.type === 'math') renderMathStep(step);
+    else renderBackStep(step);
+  }
+
+  function showResults(){
+    els.phaseBadge.className = 'badge badge-idle';
+    els.phaseBadge.textContent = 'จบการทดลอง';
+    els.statusMeta.innerHTML = 'ครบ ' + NUM_INTERRUPTS + ' ครั้งของการขัดจังหวะแล้ว<span class="sub">&nbsp;</span>';
+    els.controls.hidden = true;
+    els.controls.innerHTML = '';
+
+    var p = stats.pre, r = stats.resume;
+    var preRT = p.n ? Math.round(p.rtSum/p.n) : 0;
+    var resRT = r.n ? Math.round(r.rtSum/r.n) : 0;
+    var preAcc = p.n ? Math.round(100*p.correct/p.n) : 0;
+    var resAcc = r.n ? Math.round(100*r.correct/r.n) : 0;
+    var maxRT = Math.max(preRT, resRT, 1);
+    var scaleRT = Math.ceil(maxRT/200)*200 || 200;
+
+    var deltaRT = resRT - preRT;
+    var deltaAcc = preAcc - resAcc;
+    var insight;
+    if (p.n >= 3 && r.n >= 3){
+      var rtPhrase = deltaRT >= 0
+        ? 'ช้ากว่ารอบก่อนขัดจังหวะประมาณ <b>' + deltaRT + ' ms</b>'
+        : 'เร็วกว่ารอบก่อนขัดจังหวะประมาณ <b>' + (-deltaRT) + ' ms</b>';
+      var accPhrase = deltaAcc >= 0
+        ? 'แม่นยำน้อยกว่าประมาณ <b>' + deltaAcc + ' เปอร์เซ็นต์</b>'
+        : 'แม่นยำมากกว่าประมาณ <b>' + (-deltaAcc) + ' เปอร์เซ็นต์</b>';
+      insight = 'ในรอบนี้ของคุณ รอบ <b>กลับมาทำงานต่อ</b> ' + rtPhrase + ' และ' + accPhrase +
+        ' เมื่อเทียบกับรอบก่อนขัดจังหวะ งานวิจัยต้นฉบับพบว่าโดยเฉลี่ย (จากผู้เข้าร่วม 33 คน) รอบกลับมาทำงานต่อจะช้าลงและแม่นยำน้อยลงอย่างสม่ำเสมอ — แต่การเล่นสั้น ๆ เพียงคนเดียวแบบนี้ ผลอาจสุ่มไปทางใดทางหนึ่งได้ตามธรรมชาติ';
+    } else {
+      insight = 'เก็บข้อมูลไม่พอสำหรับสรุปแนวโน้ม ลองกดรีสตาร์ทแล้วเล่นให้ครบทุกรอบอีกครั้ง';
+    }
+
+    els.stage.innerHTML =
+      '<div class="results-wrap" style="width:100%">' +
+        '<div class="results-intro"><p>สรุปผลจากการเล่นของคุณ เทียบรอบก่อนขัดจังหวะกับรอบกลับมาทำงานต่อ</p></div>' +
+        '<div class="chart-block">' +
+          '<h3>เวลาตอบสนองเฉลี่ย (RT)</h3>' +
+          barRow('ก่อนขัดจังหวะ', preRT, scaleRT, 'pre', ' ms') +
+          barRow('กลับมาทำงาน', resRT, scaleRT, 'resume', ' ms') +
+        '</div>' +
+        '<div class="chart-block">' +
+          '<h3>ความแม่นยำ</h3>' +
+          barRow('ก่อนขัดจังหวะ', preAcc, 100, 'pre', '%') +
+          barRow('กลับมาทำงาน', resAcc, 100, 'resume', '%') +
+        '</div>' +
+        '<div class="insight">' + insight + '</div>' +
+        '<div style="text-align:center"><button class="btn-primary" id="restartBtn">เล่นอีกครั้ง</button></div>' +
+      '</div>';
+
+    document.getElementById('restartBtn').addEventListener('click', resetAll);
+  }
+
+  function barRow(label, val, scale, kind, unit){
+    var pct = Math.max(2, Math.min(100, Math.round(100*val/scale)));
+    return '<div class="bar-row">' +
+      '<span class="bar-label">' + label + '</span>' +
+      '<div class="bar-track"><div class="bar-fill ' + kind + '" style="width:' + pct + '%"></div></div>' +
+      '<span class="bar-val">' + val + unit + '</span>' +
+    '</div>';
+  }
+
+  function resetAll(){
+    started = false;
+    locked = false;
+    pointer = 0;
+    stats = { pre:{n:0,correct:0,rtSum:0}, resume:{n:0,correct:0,rtSum:0} };
+    updateStatsPanel();
+    timeline = [];
+    chipEls = [];
+    els.timeline.innerHTML = '';
+    els.controls.hidden = true;
+    els.controls.innerHTML = '';
+    els.phaseBadge.className = 'badge badge-idle';
+    els.phaseBadge.textContent = 'ยังไม่เริ่ม';
+    els.statusMeta.innerHTML = 'กดเริ่มทดลองด้านล่าง<span class="sub">&nbsp;</span>';
+    renderStartGrid();
+    els.stage.innerHTML = '';
+    var startCard = document.createElement('div');
+    startCard.className = 'start-card';
+    startCard.innerHTML = '<p>ตัวอย่างสิ่งเร้า (ตำแหน่งสุ่ม) — กดเริ่มเพื่อให้ระบบสร้างลำดับการทดลองใหม่แบบสุ่ม</p>';
+    var g = els.startGrid;
+    els.stage.appendChild(startCard);
+    startCard.appendChild(g);
+    var btn = document.createElement('button');
+    btn.className = 'btn-primary';
+    btn.id = 'startBtn';
+    btn.textContent = 'เริ่มทดลอง';
+    startCard.appendChild(btn);
+    btn.addEventListener('click', startRun);
+  }
+
+  function startRun(){
+    started = true;
+    pointer = 0;
+    timeline = buildTimeline();
+    buildChips();
+    renderCurrent();
+  }
+
+  els.startBtn.addEventListener('click', startRun);
+
+  document.addEventListener('keydown', function(e){
+    if (!started || locked) return;
+    var step = timeline[pointer];
+    if (!step) return;
+    var k = e.key.toLowerCase();
+    if (step.type === 'back' && !step.warmup){
+      if (k === 'f') respondBack(true);
+      else if (k === 'j') respondBack(false);
+    } else if (step.type === 'math'){
+      if (k === 'f') respondMath(false);
+      else if (k === 'j') respondMath(true);
+    }
+  });
+
+  updateStatsPanel();
+})();
+</script>
